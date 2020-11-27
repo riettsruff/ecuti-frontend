@@ -1,0 +1,625 @@
+<!-- SIDEBAR WRAPPER START -->
+<div id="sidebar-wrapper" class="d-flex flex-column" th:fragment="sidebar-wrapper">
+  <div class="head-sidebar d-flex justify-content-center align-items-center">
+    <h3>E-CUTI</h3>
+  </div>
+  <div class="body-sidebar">
+    <div sec:authorize="hasRole('KARYAWAN')" class="sidebar-list-v1">
+      <ul>
+        <li th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/' ? ' active' : ''}">
+          <a href="/">Dashboard</a>
+        </li>
+        <li th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/pribadi/pengajuan-cuti' ? ' active' : ''}">
+          <a href="/pribadi/pengajuan-cuti">Pengajuan Cuti</a>
+        </li>
+        <li th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/pribadi/riwayat-cuti' ? ' active' : ''}">
+          <a href="/pribadi/riwayat-cuti">Riwayat Cuti</a>
+        </li>
+      </ul>
+    </div>
+    <div sec:authorize="hasAnyRole('MANAJER', 'SDM')" class="sidebar-list-v2">
+      <div class="inner-sidebar-list">
+        <div class="inner-sidebar-list-body">
+          <ul>
+            <li th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/' ? ' active' : ''}">
+              <a href="/">Dashboard</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="inner-sidebar-list">
+        <span class="inner-sidebar-list-head">Pribadi</span>
+        <div class="inner-sidebar-list-body">
+          <ul>
+            <li th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/pribadi/pengajuan-cuti' ? ' active' : ''}">
+              <a href="/pribadi/pengajuan-cuti">Pengajuan Cuti</a>
+            </li>
+            <li th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/pribadi/riwayat-cuti' ? ' active' : ''}">
+              <a href="/pribadi/riwayat-cuti">Riwayat Cuti</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="inner-sidebar-list">
+        <span class="inner-sidebar-list-head">Karyawan</span>
+        <div class="inner-sidebar-list-body">
+          <ul>
+            <li th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/karyawan' ? ' active' : ''}">
+              <a href="/karyawan">Karyawan</a>
+            </li>
+            <li sec:authorize="hasRole('MANAJER')" th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/karyawan/persetujuan-cuti' ? ' active' : ''}">
+              <a href="/karyawan/persetujuan-cuti">
+                <span class="link-text">Persetujuan Cuti</span>
+                <span class="count-value">2</span>
+              </a>
+            </li>
+            <li th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/karyawan/riwayat-cuti' ? ' active' : ''}">
+              <a href="/karyawan/riwayat-cuti">Riwayat Cuti</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot-sidebar">
+    <form method="POST" th:action="@{/logout}">
+      <button type="submit" class="logout-button">Logout</button>
+    </form>
+  </div>
+</div>
+<!-- SIDEBAR WRAPPER END -->
+
+<!-- MAIN CONTENT WRAPPER START -->
+<div id="main-content-wrapper" th:fragment="main-content-wrapper">
+  <div class="head-main-content">
+    <div class="user-section">
+      <div class="user-icon">
+        <i class="fas fa-user"></i>
+      </div>
+      <div class="user-name">
+        <span class="name-text">Arib Mamdani</span>
+      </div>
+      <div class="user-action-caret-down-icon">
+        <i class="fas fa-caret-down"></i>
+      </div>
+    </div>
+  </div>
+  <div class="body-main-content">
+    <div class="greetings-box">
+      <span class="greetings-text">Hi, <span class="user-name">Arib Mamdani</span></span>
+    </div>
+
+    <!-- DASHBOARD START -->
+    <div sec:authorize="hasRole('KARYAWAN')" th:if="${#httpServletRequest.requestURI == '/'}" class="content-area">
+      <div class="box-info-row">
+        <div class="box-info-col">
+          <div class="box-info">
+            <span class="box-info-title">Sisa Jatah Cuti</span>
+            <span class="box-info-icon">
+              <i class="fas fa-certificate"></i>
+            </span>
+            <span class="box-info-value">12</span>
+          </div>
+        </div>
+        <div class="box-info-col">
+          <div class="box-info">
+            <span class="box-info-title">Riwayat Cuti</span>
+            <span class="box-info-icon">
+              <i class="fas fa-history"></i>
+            </span>
+            <span class="box-info-value">7</span>
+          </div>
+        </div>
+      </div>
+      <div class="box-content">
+        <div class="box-content-head">
+          <span class="head-text">Status Cuti Saat Ini</span>
+        </div>
+        <div class="box-content-body">
+          <div class="box-cuti-row row">
+            <div class="box-cuti-col col-sm-6">
+              <div class="box-cuti">
+                <span class="cuti-text-box">CT-2020112008063021</span>
+                <div class="cuti-action">
+                  <span class="single-cuti-action eye-icon touch-icon">
+                    <i class="fas fa-eye"></i>
+                  </span>
+                  <span class="single-cuti-action edit-icon touch-icon">
+                    <i class="fas fa-edit"></i>
+                  </span>
+                  <span class="single-cuti-action trash-icon touch-icon">
+                    <i class="fas fa-trash"></i>
+                  </span>
+                </div>
+                <table class="cuti-table">
+                  <tbody>
+                    <tr>
+                      <td class="cuti-text-field">Tanggal Cuti</td>
+                      <td class="cuti-text-value">18-09-2020 s/d 21-09-2020</td>
+                    </tr>
+                    <tr>
+                      <td class="cuti-text-field">Jenis Cuti</td>
+                      <td class="cuti-text-value">Pernikahan</td>
+                    </tr>
+                    <tr>
+                      <td class="cuti-text-field">Durasi</td>
+                      <td class="cuti-text-value">3 Hari</td>
+                    </tr>
+                    <tr>
+                      <td class="cuti-text-field">Status</td>
+                      <td class="cuti-text-value">
+                        <span class="orange-txt">Tertunda</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="box-cuti-col col-sm-6">
+              <div class="box-cuti">
+                <span class="cuti-text-box">CT-2020112010173029</span>
+                <div class="cuti-action">
+                  <span class="single-cuti-action eye-icon touch-icon">
+                    <i class="fas fa-eye"></i>
+                  </span>
+                  <span class="single-cuti-action edit-icon touch-icon">
+                    <i class="fas fa-edit"></i>
+                  </span>
+                  <span class="single-cuti-action trash-icon touch-icon">
+                    <i class="fas fa-trash"></i>
+                  </span>
+                </div>
+                <table class="cuti-table">
+                  <tbody>
+                    <tr>
+                      <td class="cuti-text-field">Tanggal Cuti</td>
+                      <td class="cuti-text-value">05-10-2020 s/d 08-10-2020</td>
+                    </tr>
+                    <tr>
+                      <td class="cuti-text-field">Jenis Cuti</td>
+                      <td class="cuti-text-value">Pernikahan</td>
+                    </tr>
+                    <tr>
+                      <td class="cuti-text-field">Durasi</td>
+                      <td class="cuti-text-value">3 Hari</td>
+                    </tr>
+                    <tr>
+                      <td class="cuti-text-field">Status</td>
+                      <td class="cuti-text-value">
+                        <span class="orange-txt">Tertunda</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div sec:authorize="hasAnyRole('MANAJER', 'SDM')" th:if="${#httpServletRequest.requestURI == '/'}" class="content-area">
+      <div class="box-content">
+        <div class="box-content-head">
+          <span class="head-text">Informasi Pribadi</span>
+        </div>
+        <div class="box-content-body">
+          <div class="box-info-row">
+            <div class="box-info-col">
+              <div class="box-info">
+                <span class="box-info-title">Sisa Jatah Cuti</span>
+                <span class="box-info-icon">
+                  <i class="fas fa-certificate"></i>
+                </span>
+                <span class="box-info-value">12</span>
+              </div>
+            </div>
+            <div class="box-info-col">
+              <div class="box-info">
+                <span class="box-info-title">Riwayat Cuti</span>
+                <span class="box-info-icon">
+                  <i class="fas fa-history"></i>
+                </span>
+                <span class="box-info-value">7</span>
+              </div>
+            </div>
+          </div>
+          <div class="box-content">
+            <div class="box-content-head">
+              <span class="head-text">Status Cuti Saat Ini</span>
+            </div>
+            <div class="box-content-body">
+              <div class="box-cuti-row row">
+                <div class="box-cuti-col col-sm-6">
+                  <div class="box-cuti">
+                    <span class="cuti-text-box">CT-2020112008063021</span>
+                    <div class="cuti-action">
+                      <span class="single-cuti-action eye-icon touch-icon">
+                        <i class="fas fa-eye"></i>
+                      </span>
+                      <span class="single-cuti-action edit-icon touch-icon">
+                        <i class="fas fa-edit"></i>
+                      </span>
+                      <span class="single-cuti-action trash-icon touch-icon">
+                        <i class="fas fa-trash"></i>
+                      </span>
+                    </div>
+                    <table class="cuti-table">
+                      <tbody>
+                        <tr>
+                          <td class="cuti-text-field">Tanggal Cuti</td>
+                          <td class="cuti-text-value">18-09-2020 s/d 21-09-2020</td>
+                        </tr>
+                        <tr>
+                          <td class="cuti-text-field">Jenis Cuti</td>
+                          <td class="cuti-text-value">Pernikahan</td>
+                        </tr>
+                        <tr>
+                          <td class="cuti-text-field">Durasi</td>
+                          <td class="cuti-text-value">3 Hari</td>
+                        </tr>
+                        <tr>
+                          <td class="cuti-text-field">Status</td>
+                          <td class="cuti-text-value">
+                            <span class="orange-txt">Tertunda</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="box-cuti-col col-sm-6">
+                  <div class="box-cuti">
+                    <span class="cuti-text-box">CT-2020112010173029</span>
+                    <div class="cuti-action">
+                      <span class="single-cuti-action eye-icon touch-icon">
+                        <i class="fas fa-eye"></i>
+                      </span>
+                      <span class="single-cuti-action edit-icon touch-icon">
+                        <i class="fas fa-edit"></i>
+                      </span>
+                      <span class="single-cuti-action trash-icon touch-icon">
+                        <i class="fas fa-trash"></i>
+                      </span>
+                    </div>
+                    <table class="cuti-table">
+                      <tbody>
+                        <tr>
+                          <td class="cuti-text-field">Tanggal Cuti</td>
+                          <td class="cuti-text-value">05-10-2020 s/d 08-10-2020</td>
+                        </tr>
+                        <tr>
+                          <td class="cuti-text-field">Jenis Cuti</td>
+                          <td class="cuti-text-value">Pernikahan</td>
+                        </tr>
+                        <tr>
+                          <td class="cuti-text-field">Durasi</td>
+                          <td class="cuti-text-value">3 Hari</td>
+                        </tr>
+                        <tr>
+                          <td class="cuti-text-field">Status</td>
+                          <td class="cuti-text-value">
+                            <span class="orange-txt">Tertunda</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box-content">
+        <div class="box-content-head">
+          <span class="head-text">Informasi Karyawan</span>
+        </div>
+        <div class="box-content-body">
+          <div class="box-info-row">
+            <div class="box-info-col">
+              <div class="box-info">
+                <span class="box-info-title">Karyawan Aktif</span>
+                <span class="box-info-icon">
+                  <i class="fas fa-briefcase"></i>
+                </span>
+                <span class="box-info-value">34</span>
+              </div>
+            </div>
+            <div class="box-info-col">
+              <div class="box-info">
+                <span class="box-info-title">Karyawan Cuti</span>
+                <span class="box-info-icon">
+                  <i class="fas fa-business-time"></i>
+                </span>
+                <span class="box-info-value">4</span>
+              </div>
+            </div>
+            <div sec:authorize="hasRole('MANAJER')" class="box-info-col">
+              <div class="box-info">
+                <span class="box-info-title">Persetujuan Cuti</span>
+                <span class="box-info-icon">
+                  <i class="fas fa-handshake"></i>
+                </span>
+                <span class="box-info-value">2</span>
+              </div>
+            </div>
+            <div class="box-info-col">
+              <div class="box-info">
+                <span class="box-info-title">Riwayat Cuti</span>
+                <span class="box-info-icon">
+                  <i class="fas fa-history"></i>
+                </span>
+                <span class="box-info-value">9</span>
+              </div>
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- DASHBOARD END -->
+    
+    <!-- PENGAJUAN CUTI START -->
+    <form th:if="${#httpServletRequest.requestURI == '/pribadi/pengajuan-cuti'}">
+      <div class="box-content">
+        <div class="box-content-head">
+          <span class="head-text">Informasi Pribadi</span>
+        </div>
+        <div class="box-content-body">
+          <div class="form-group row">
+            <label for="infopribadi__nik" class="col-xl-2 col-md-3 col-sm-4 col-form-label required">No. Induk Karyawan</label>
+            <div class="col-xl-10 col-md-9 col-sm-8">
+              <input type="text" class="form-control" id="infopribadi__nik" disabled>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="infopribadi__namalengkap" class="col-xl-2 col-md-3 col-sm-4 col-form-label required">Nama Lengkap</label>
+            <div class="col-xl-10 col-md-9 col-sm-8">
+              <input type="text" class="form-control" id="infopribadi__namalengkap" disabled>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="infopribadi__jabatan" class="col-xl-2 col-md-3 col-sm-4 col-form-label required">Jabatan</label>
+            <div class="col-xl-10 col-md-9 col-sm-8">
+              <input type="text" class="form-control" id="infopribadi__jabatan" disabled>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="infopribadi__bagian" class="col-xl-2 col-md-3 col-sm-4 col-form-label required">Bagian</label>
+            <div class="col-xl-10 col-md-9 col-sm-8">
+              <input type="text" class="form-control" id="infopribadi__bagian" disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box-content">
+        <div class="box-content-head">
+          <span class="head-text">Informasi Cuti</span>
+        </div>
+        <div class="box-content-body">
+          <div class="form-group">
+            <label for="infocuti__jeniscuti" class="required">Jenis Cuti</label>
+            <select class="form-control" id="infocuti__jeniscuti">
+              <option>Opsi 1</option>
+              <option>Opsi 2</option>
+              <option>Opsi 3</option>
+              <option>Opsi 4</option>
+              <option>Opsi 5</option>
+            </select>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="infocuti__tanggalmulaicuti" class="required">Tanggal Mulai Cuti</label>
+              <input type="text" class="form-control" id="infocuti__tanggalmulaicuti" data-toggle="datepicker">
+            </div>
+            <div class="col-md-6">
+              <label for="infocuti__tanggalselesaicuti" class="required">Tanggal Selesai Cuti</label>
+              <input type="text" class="form-control" id="infocuti__tanggalselesaicuti" data-toggle="datepicker">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="infocuti__jumlahcutidiambil" class="required">Jumlah Cuti Diambil</label>
+              <input type="text" class="form-control" id="infocuti__jumlahcutidiambil">
+            </div>
+            <div class="col-md-6">
+              <label for="infocuti__sisacuti" class="required">Sisa Cuti</label>
+              <input type="text" class="form-control" id="infocuti__sisacuti" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="infocuti__keterangan">Keterangan</label>
+            <textarea class="form-control" id="infocuti__keterangan" rows="3"></textarea>
+          </div>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="infocuti__perlupengganti">
+            <label class="form-check-label" for="infocuti__perlupengganti">Perlu Pengganti</label>
+          </div>
+        </div>
+      </div>
+      <div class="box-content d-flex justify-content-end">
+        <button type="submit" class="btn-primary-custom">Ajukan</button>
+      </div>
+    </form>
+    <!-- PENGAJUAN CUTI END -->
+
+    <!-- RIWAYAT CUTI START -->
+    <div th:if="${#httpServletRequest.requestURI == '/pribadi/riwayat-cuti' or #httpServletRequest.requestURI == '/karyawan/riwayat-cuti'}" class="content-area">
+      <div class="export-wrapper">
+        <div class="single-export-action excel-icon touch-icon">
+          <i class="fas fa-file-excel"></i>
+        </div>
+      </div>
+      <table id="riwayat-cuti-table" class="table hover">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Tanggal Mulai Cuti</th>
+            <th>Jenis Cuti</th>
+            <th>Jumlah Cuti Diambil</th>
+            <th>Catatan</th>
+            <th>Opsi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>09-12-2019</td>
+            <td>Pernikahan</td>
+            <td>2</td>
+            <td>Lorem ipsum dolor sit amet...</td>
+            <td>
+              <span class="eye-icon action-icon touch-icon">
+                <i class="fas fa-eye"></i>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>08-11-2019</td>
+            <td>Sakit</td>
+            <td>3</td>
+            <td>Lorem ipsum dolor sit amet...</td>
+            <td>
+              <span class="eye-icon action-icon touch-icon">
+                <i class="fas fa-eye"></i>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- RIWAYAT CUTI END -->
+
+    <!-- PERSETUJUAN CUTI START -->
+    <div sec:authorize="hasRole('MANAJER')" th:if="${#httpServletRequest.requestURI == '/karyawan/persetujuan-cuti'}" class="content-area">
+      <div class="export-wrapper">
+        <div class="single-export-action excel-icon touch-icon">
+          <i class="fas fa-file-excel"></i>
+        </div>
+      </div>
+      <table id="persetujuan-cuti-table" class="table hover">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Tanggal Mulai Cuti</th>
+            <th>Jenis Cuti</th>
+            <th>Jumlah Cuti Diambil</th>
+            <th>Opsi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Ardi Budianto</td>
+            <td>09-12-2019</td>
+            <td>Sakit</td>
+            <td>3</td>
+            <td>
+              <span class="eye-icon action-icon touch-icon">
+                <i class="fas fa-eye"></i>
+              </span>
+              <span class="check-icon action-icon touch-icon">
+                <i class="fas fa-check"></i>
+              </span>
+              <span class="times-icon action-icon touch-icon">
+                <i class="fas fa-times"></i>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Alex Budiman</td>
+            <td>08-11-2019</td>
+            <td>Pernikahan</td>
+            <td>2</td>
+            <td>
+              <span class="eye-icon action-icon touch-icon">
+                <i class="fas fa-eye"></i>
+              </span>
+              <span class="check-icon action-icon touch-icon">
+                <i class="fas fa-check"></i>
+              </span>
+              <span class="times-icon action-icon touch-icon">
+                <i class="fas fa-times"></i>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- PERSETUJUAN CUTI END -->
+
+    <!-- KARYAWAN START -->
+    <div sec:authorize="hasAnyRole('MANAJER', 'SDM')" th:if="${#httpServletRequest.requestURI == '/karyawan'}" class="content-area">
+      <div sec:authorize="hasRole('SDM')" class="add-circle-button d-flex justify-content-center align-items-center touch-icon">
+        <i class="fas fa-plus"></i>
+      </div>
+      <div class="export-wrapper">
+        <div class="single-export-action excel-icon touch-icon">
+          <i class="fas fa-file-excel"></i>
+        </div>
+      </div>
+      <table id="karyawan-table" class="table hover">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>NIK</th>
+            <th>Nama</th>
+            <th>Jabatan</th>
+            <th>Bagian</th>
+            <th>Status</th>
+            <th>Opsi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>PEG-2019-0001</td>
+            <td>Ardi Budianto</td>
+            <td>Manajer</td>
+            <td>Keuangan</td>
+            <td>
+              <span class="red-text-box">Cuti</span>
+            </td>
+            <td>
+              <span class="eye-icon action-icon touch-icon">
+                <i class="fas fa-eye"></i>
+              </span>
+              <span sec:authorize="hasRole('SDM')" class="edit-icon action-icon touch-icon">
+                <i class="fas fa-edit"></i>
+              </span>
+              <span sec:authorize="hasRole('SDM')" class="trash-icon action-icon touch-icon">
+                <i class="fas fa-trash"></i>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>PEG-2019-0002</td>
+            <td>Alex Budiman</td>
+            <td>Staf</td>
+            <td>ERD</td>
+            <td>
+              <span class="green-text-box">Aktif</span>
+            </td>
+            <td>
+              <span class="eye-icon action-icon touch-icon">
+                <i class="fas fa-eye"></i>
+              </span>
+              <span sec:authorize="hasRole('SDM')" class="edit-icon action-icon touch-icon">
+                <i class="fas fa-edit"></i>
+              </span>
+              <span sec:authorize="hasRole('SDM')" class="trash-icon action-icon touch-icon">
+                <i class="fas fa-trash"></i>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- KARYAWAN END -->
+  
+  </div>
+</div>
+<!-- MAIN CONTENT WRAPPER END -->

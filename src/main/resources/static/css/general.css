@@ -1,0 +1,180 @@
+*,
+*::before,
+*::after {
+  color: inherit;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-size: 16px;
+  color: #444;
+  background-color: #e9fbfe;
+}
+
+form {
+  width: 100%;
+}
+
+select:focus,
+input:focus,
+textarea:focus {
+  box-shadow: none !important;
+  outline: none !important;
+  border: 1px solid #40C2C4 !important;
+}
+
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+
+button,
+button:active {
+  outline: none !important;
+  border: none !important;
+}
+
+.form-control:disabled, .form-control[readonly] {
+  background-color: #f5f5f5;
+}
+
+label.required:after {
+  content: "*";
+  color: #fc4d44;
+  margin-left: 3px;
+  font-size: 1.05em;
+}
+
+.touch-icon {
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.eye-icon {
+  color: #40C2C4;
+}
+
+.eye-icon:hover {
+  color: #10a0a0;
+}
+
+.check-icon {
+  color: #53db53;
+}
+
+.check-icon:hover {
+  color: #33b733;
+}
+
+.times-icon,
+.trash-icon {
+  color: #f76c6c;
+}
+
+.times-icon:hover,
+.trash-icon:hover {
+  color: #e84747;
+}
+
+.edit-icon {
+  color: #ffb53f;
+}
+
+.edit-icon:hover {
+  color: #f29b18;
+}
+
+.orange-txt {
+  color: #f48f42;
+}
+
+.red-text-box {
+  background-color: #ffe4e3;
+  color: #e6372e;
+  display: inline-block;
+  text-align: center;
+  width: 70px;
+  padding: 2px;
+  border-radius: 4px;
+  font-size: 0.95em;
+  border: 1px solid #eee;
+}
+
+.green-text-box {
+  background-color: #e9f8e9;
+  color: #41a93f;
+  display: inline-block;
+  text-align: center;
+  width: 70px;
+  padding: 2px;
+  border-radius: 4px;
+  font-size: 0.95em;
+  border: 1px solid #eee;
+}
+
+.btn-primary-custom {
+  background-color: #40c2c4;
+  color: #fff;
+  border-radius: 5px;
+  letter-spacing: 0.025em;
+  border: none;
+  padding-left: 30px;
+  padding-right: 30px;
+  line-height: 1;
+  height: 38px;
+  transition: 0.3s ease-in-out;
+}
+
+.btn-primary-custom:hover {
+  background-color: #26adaf;
+}
+
+table thead th {
+  border-top: none !important;
+}
+
+table tbody tr:last-of-type td {
+  border-bottom: 1px solid #eee;
+}
+
+/* DATATABLE CUSTOM */
+
+table.dataTable {
+  margin-bottom: 12px;
+  border-bottom: none !important;
+}
+
+table.dataTable thead th {
+  border-bottom: none !important;
+  background-color: #f9f9f9;
+  font-weight: 500;
+}
+
+.dataTables_length select {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.dataTables_filter {
+  margin-bottom: 6px;
+}
+
+.dataTables_filter input {
+  margin-left: 8px !important;
+}
