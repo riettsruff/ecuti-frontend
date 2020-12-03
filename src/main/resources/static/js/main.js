@@ -1,5 +1,24 @@
 $(document).ready(function() {
 
+  $(this).on("click", function() {
+    $(".user-action-caret-down-icon").removeClass("rotate");
+    $(".user-action-area").removeClass("active");
+  });
+
+  $(".user-section").on("click", function(event) {
+    event.stopPropagation();
+
+    $(this)
+      .find(".user-action-caret-down-icon")
+      .toggleClass("rotate");
+    $(this)
+      .find(".user-action-area")
+      .toggleClass("active")
+      .on("click", function(event) {
+        event.stopPropagation();
+      });
+  });
+
   $("#infocuti__tanggalmulaicuti").datepicker({
     format: 'yyyy-mm-dd',
     startDate: new Date()

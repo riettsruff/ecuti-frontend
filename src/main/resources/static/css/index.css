@@ -142,8 +142,7 @@
   top: 50%;
   right: 15px;
   transform: translateY(-50%);
-  display: flex;
-  align-items: center;
+  cursor: pointer;
 }
 
 #main-content-wrapper .head-main-content .user-section .user-icon {
@@ -162,6 +161,81 @@
 #main-content-wrapper .head-main-content .user-section .user-name {
   margin-left: 8px;
   margin-right: 8px;
+}
+
+#main-content-wrapper .head-main-content .user-section .user-action-caret-down-icon {
+  transition: 0.4s ease-in-out;
+}
+
+#main-content-wrapper .head-main-content .user-section .user-action-caret-down-icon.rotate {
+  transform: rotate(180deg);
+}
+
+#main-content-wrapper .head-main-content .user-section .user-action-area {
+  position: absolute;
+  right: 15px;
+  top: 29px;
+  width: 160px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #fff;
+  z-index: 10;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(0,0,0,.15);
+  opacity: 0;
+  visibility: hidden;
+  font-size: .875em;
+  transition: .5s ease-in-out;
+}
+
+#main-content-wrapper .head-main-content .user-section .user-action-area:before {
+  content: "";
+  position: absolute;
+  top: -16px;
+  left: 0;
+  height: 16px;
+  width: 100%;
+}
+
+#main-content-wrapper .head-main-content .user-section .user-action-area:after {
+  content: "";
+  width: 0;
+  height: 0;
+  display: block;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 12px solid #fff;
+  position: absolute;
+  top: -12px;
+  right: 12px;
+}
+
+#main-content-wrapper .head-main-content .user-section .user-action-area.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(15px);
+}
+
+#main-content-wrapper .head-main-content .user-section .user-action-area .user-action-list {
+  width: 100%;
+}
+
+#main-content-wrapper .head-main-content .user-section .user-action-area .single-user-action {
+  padding: 9px 14px;
+  cursor: pointer;
+  transition: .4s ease-in-out;
+}
+
+#main-content-wrapper .head-main-content .user-section .user-action-area .single-user-action.active {
+  background-color: #f2f2f2;
+}
+
+#main-content-wrapper .head-main-content .user-section .user-action-area .single-user-action:not(.active):hover {
+  background-color: #f9f9f9;
+}
+
+#main-content-wrapper .head-main-content .user-section .user-action-area .user-action-icon {
+  margin-right: 5px;
 }
 
 #main-content-wrapper .body-main-content {

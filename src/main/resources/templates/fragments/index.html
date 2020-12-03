@@ -72,7 +72,7 @@
 <!-- MAIN CONTENT WRAPPER START -->
 <div id="main-content-wrapper" th:fragment="main-content-wrapper">
   <div class="head-main-content">
-    <div class="user-section">
+    <div class="user-section d-flex align-items-center">
       <div class="user-icon">
         <i class="fas fa-user"></i>
       </div>
@@ -81,6 +81,22 @@
       </div>
       <div class="user-action-caret-down-icon">
         <i class="fas fa-caret-down"></i>
+      </div>
+      <div class="user-action-area d-flex flex-column justify-content-center align-items-center">
+        <ul class="user-action-list">
+          <li class="single-user-action my-profile-action">
+            <span class="user-action-icon ">
+              <i class="fas fa-user"></i>
+            </span>
+            <span class="user-action-text">Profil Saya</span>
+          </li>
+          <li class="single-user-action change-password-action">
+            <span class="user-action-icon">
+              <i class="fas fa-key"></i>
+            </span>
+            <span class="user-action-text">Ganti Password</span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
