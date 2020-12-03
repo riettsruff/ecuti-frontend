@@ -85,7 +85,7 @@
     </div>
   </div>
   <div class="body-main-content">
-    <div class="greetings-box">
+    <div th:if="${#httpServletRequest.requestURI == '/'}" class="greetings-box">
       <span class="greetings-text">Hi, <span class="user-name">Arib Mamdani</span></span>
     </div>
 
@@ -93,7 +93,7 @@
     <div sec:authorize="hasRole('KARYAWAN')" th:if="${#httpServletRequest.requestURI == '/'}" class="content-area">
       <div class="box-info-row">
         <div class="box-info-col">
-          <div class="box-info">
+          <div class="box-info bg-color-1">
             <span class="box-info-title">Sisa Jatah Cuti</span>
             <span class="box-info-icon">
               <i class="fas fa-certificate"></i>
@@ -102,9 +102,9 @@
           </div>
         </div>
         <div class="box-info-col">
-          <div class="box-info">
+          <div class="box-info bg-color-2">
             <span class="box-info-title">Riwayat Cuti</span>
-            <span class="box-info-icon">
+            <span class="box-info-icon color-2">
               <i class="fas fa-history"></i>
             </span>
             <span class="box-info-value">7</span>
@@ -134,8 +134,12 @@
                 <table class="cuti-table">
                   <tbody>
                     <tr>
-                      <td class="cuti-text-field">Tanggal Cuti</td>
-                      <td class="cuti-text-value">18-09-2020 s/d 21-09-2020</td>
+                      <td class="cuti-text-field">Tanggal Mulai Cuti</td>
+                      <td class="cuti-text-value">18-09-2020</td>
+                    </tr>
+                    <tr>
+                      <td class="cuti-text-field">Tanggal Selesai Cuti</td>
+                      <td class="cuti-text-value">21-09-2020</td>
                     </tr>
                     <tr>
                       <td class="cuti-text-field">Jenis Cuti</td>
@@ -145,14 +149,9 @@
                       <td class="cuti-text-field">Durasi</td>
                       <td class="cuti-text-value">3 Hari</td>
                     </tr>
-                    <tr>
-                      <td class="cuti-text-field">Status</td>
-                      <td class="cuti-text-value">
-                        <span class="orange-txt">Tertunda</span>
-                      </td>
-                    </tr>
                   </tbody>
                 </table>
+                <span class="cuti-status text-box alert-warning">Tertunda</span>
               </div>
             </div>
             <div class="box-cuti-col col-sm-6">
@@ -172,8 +171,12 @@
                 <table class="cuti-table">
                   <tbody>
                     <tr>
-                      <td class="cuti-text-field">Tanggal Cuti</td>
-                      <td class="cuti-text-value">05-10-2020 s/d 08-10-2020</td>
+                      <td class="cuti-text-field">Tanggal Mulai Cuti</td>
+                      <td class="cuti-text-value">05-10-2020</td>
+                    </tr>
+                    <tr>
+                      <td class="cuti-text-field">Tanggal Selesai Cuti</td>
+                      <td class="cuti-text-value">05-10-2020</td>
                     </tr>
                     <tr>
                       <td class="cuti-text-field">Jenis Cuti</td>
@@ -183,14 +186,9 @@
                       <td class="cuti-text-field">Durasi</td>
                       <td class="cuti-text-value">3 Hari</td>
                     </tr>
-                    <tr>
-                      <td class="cuti-text-field">Status</td>
-                      <td class="cuti-text-value">
-                        <span class="orange-txt">Tertunda</span>
-                      </td>
-                    </tr>
                   </tbody>
                 </table>
+                <span class="cuti-status text-box alert-warning">Tertunda</span>
               </div>
             </div>
           </div>
@@ -205,18 +203,18 @@
         <div class="box-content-body">
           <div class="box-info-row">
             <div class="box-info-col">
-              <div class="box-info">
+              <div class="box-info bg-color-1">
                 <span class="box-info-title">Sisa Jatah Cuti</span>
-                <span class="box-info-icon">
+                <span class="box-info-icon color-1">
                   <i class="fas fa-certificate"></i>
                 </span>
                 <span class="box-info-value">12</span>
               </div>
             </div>
             <div class="box-info-col">
-              <div class="box-info">
+              <div class="box-info bg-color-2">
                 <span class="box-info-title">Riwayat Cuti</span>
-                <span class="box-info-icon">
+                <span class="box-info-icon color-2">
                   <i class="fas fa-history"></i>
                 </span>
                 <span class="box-info-value">7</span>
@@ -246,8 +244,12 @@
                     <table class="cuti-table">
                       <tbody>
                         <tr>
-                          <td class="cuti-text-field">Tanggal Cuti</td>
-                          <td class="cuti-text-value">18-09-2020 s/d 21-09-2020</td>
+                          <td class="cuti-text-field">Tanggal Mulai Cuti</td>
+                          <td class="cuti-text-value">18-09-2020</td>
+                        </tr>
+                        <tr>
+                          <td class="cuti-text-field">Tanggal Selesai Cuti</td>
+                          <td class="cuti-text-value">21-09-2020</td>
                         </tr>
                         <tr>
                           <td class="cuti-text-field">Jenis Cuti</td>
@@ -257,14 +259,9 @@
                           <td class="cuti-text-field">Durasi</td>
                           <td class="cuti-text-value">3 Hari</td>
                         </tr>
-                        <tr>
-                          <td class="cuti-text-field">Status</td>
-                          <td class="cuti-text-value">
-                            <span class="orange-txt">Tertunda</span>
-                          </td>
-                        </tr>
                       </tbody>
                     </table>
+                    <span class="cuti-status text-box alert-warning">Tertunda</span>
                   </div>
                 </div>
                 <div class="box-cuti-col col-sm-6">
@@ -284,8 +281,12 @@
                     <table class="cuti-table">
                       <tbody>
                         <tr>
-                          <td class="cuti-text-field">Tanggal Cuti</td>
-                          <td class="cuti-text-value">05-10-2020 s/d 08-10-2020</td>
+                          <td class="cuti-text-field">Tanggal Mulai Cuti</td>
+                          <td class="cuti-text-value">05-10-2020</td>
+                        </tr>
+                        <tr>
+                          <td class="cuti-text-field">Tanggal Selesai Cuti</td>
+                          <td class="cuti-text-value">08-10-2020</td>
                         </tr>
                         <tr>
                           <td class="cuti-text-field">Jenis Cuti</td>
@@ -295,14 +296,9 @@
                           <td class="cuti-text-field">Durasi</td>
                           <td class="cuti-text-value">3 Hari</td>
                         </tr>
-                        <tr>
-                          <td class="cuti-text-field">Status</td>
-                          <td class="cuti-text-value">
-                            <span class="orange-txt">Tertunda</span>
-                          </td>
-                        </tr>
                       </tbody>
                     </table>
+                    <span class="cuti-status text-box alert-warning">Tertunda</span>
                   </div>
                 </div>
               </div>
@@ -317,36 +313,37 @@
         <div class="box-content-body">
           <div class="box-info-row">
             <div class="box-info-col">
-              <div class="box-info">
+              <div class="box-info bg-color-3">
                 <span class="box-info-title">Karyawan Aktif</span>
-                <span class="box-info-icon">
+                <span class="box-info-icon color-3">
                   <i class="fas fa-briefcase"></i>
                 </span>
                 <span class="box-info-value">34</span>
               </div>
             </div>
             <div class="box-info-col">
-              <div class="box-info">
+              <div class="box-info bg-color-4">
                 <span class="box-info-title">Karyawan Cuti</span>
-                <span class="box-info-icon">
+                <span class="box-info-icon color-4">
                   <i class="fas fa-business-time"></i>
                 </span>
                 <span class="box-info-value">4</span>
               </div>
             </div>
             <div sec:authorize="hasRole('MANAJER')" class="box-info-col">
-              <div class="box-info">
+              <div class="box-info bg-color-5">
                 <span class="box-info-title">Persetujuan Cuti</span>
-                <span class="box-info-icon">
+                <span class="focus-circle-mask"></span>
+                <span class="box-info-icon color-5">
                   <i class="fas fa-handshake"></i>
                 </span>
                 <span class="box-info-value">2</span>
               </div>
             </div>
             <div class="box-info-col">
-              <div class="box-info">
+              <div class="box-info bg-color-2">
                 <span class="box-info-title">Riwayat Cuti</span>
-                <span class="box-info-icon">
+                <span class="box-info-icon color-2">
                   <i class="fas fa-history"></i>
                 </span>
                 <span class="box-info-value">9</span>
@@ -366,26 +363,26 @@
         </div>
         <div class="box-content-body">
           <div class="form-group row">
-            <label for="infopribadi__nik" class="col-xl-2 col-md-3 col-sm-4 col-form-label required">No. Induk Karyawan</label>
-            <div class="col-xl-10 col-md-9 col-sm-8">
+            <label for="infopribadi__nik" class="col-md-3 col-form-label required">No. Induk Karyawan</label>
+            <div class="col-md-9">
               <input type="text" class="form-control" id="infopribadi__nik" disabled>
             </div>
           </div>
           <div class="form-group row">
-            <label for="infopribadi__namalengkap" class="col-xl-2 col-md-3 col-sm-4 col-form-label required">Nama Lengkap</label>
-            <div class="col-xl-10 col-md-9 col-sm-8">
+            <label for="infopribadi__namalengkap" class="col-md-3 col-form-label required">Nama Lengkap</label>
+            <div class="col-md-9">
               <input type="text" class="form-control" id="infopribadi__namalengkap" disabled>
             </div>
           </div>
           <div class="form-group row">
-            <label for="infopribadi__jabatan" class="col-xl-2 col-md-3 col-sm-4 col-form-label required">Jabatan</label>
-            <div class="col-xl-10 col-md-9 col-sm-8">
+            <label for="infopribadi__jabatan" class="col-md-3 col-form-label required">Jabatan</label>
+            <div class="col-md-9">
               <input type="text" class="form-control" id="infopribadi__jabatan" disabled>
             </div>
           </div>
           <div class="form-group row">
-            <label for="infopribadi__bagian" class="col-xl-2 col-md-3 col-sm-4 col-form-label required">Bagian</label>
-            <div class="col-xl-10 col-md-9 col-sm-8">
+            <label for="infopribadi__bagian" class="col-md-3 col-form-label required">Bagian</label>
+            <div class="col-md-9">
               <input type="text" class="form-control" id="infopribadi__bagian" disabled>
             </div>
           </div>
@@ -419,7 +416,7 @@
           <div class="form-group row">
             <div class="col-md-6">
               <label for="infocuti__jumlahcutidiambil" class="required">Jumlah Cuti Diambil</label>
-              <input type="text" class="form-control" id="infocuti__jumlahcutidiambil">
+              <input type="text" class="form-control" id="infocuti__jumlahcutidiambil" disabled>
             </div>
             <div class="col-md-6">
               <label for="infocuti__sisacuti" class="required">Sisa Cuti</label>
@@ -445,8 +442,8 @@
     <!-- RIWAYAT CUTI START -->
     <div th:if="${#httpServletRequest.requestURI == '/pribadi/riwayat-cuti' or #httpServletRequest.requestURI == '/karyawan/riwayat-cuti'}" class="content-area">
       <div class="export-wrapper">
-        <div class="single-export-action excel-icon touch-icon">
-          <i class="fas fa-file-excel"></i>
+        <div class="single-export-action excel-button touch-button">
+          <span>Export to Excel</span>
         </div>
       </div>
       <table id="riwayat-cuti-table" class="table hover">
@@ -493,8 +490,8 @@
     <!-- PERSETUJUAN CUTI START -->
     <div sec:authorize="hasRole('MANAJER')" th:if="${#httpServletRequest.requestURI == '/karyawan/persetujuan-cuti'}" class="content-area">
       <div class="export-wrapper">
-        <div class="single-export-action excel-icon touch-icon">
-          <i class="fas fa-file-excel"></i>
+        <div class="single-export-action excel-button touch-button">
+          <span>Export to Excel</span>
         </div>
       </div>
       <table id="persetujuan-cuti-table" class="table hover">
@@ -556,8 +553,8 @@
         <i class="fas fa-plus"></i>
       </div>
       <div class="export-wrapper">
-        <div class="single-export-action excel-icon touch-icon">
-          <i class="fas fa-file-excel"></i>
+        <div class="single-export-action excel-button touch-button">
+          <span>Export to Excel</span>
         </div>
       </div>
       <table id="karyawan-table" class="table hover">

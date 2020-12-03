@@ -24,7 +24,7 @@ html {
 body {
   font-size: 16px;
   color: #444;
-  background-color: #e9fbfe;
+  background-color: #E5F3F4;
 }
 
 form {
@@ -51,7 +51,7 @@ button:active {
 }
 
 .form-control:disabled, .form-control[readonly] {
-  background-color: #f5f5f5;
+  background-color: #f8f8f8;
 }
 
 label.required:after {
@@ -61,7 +61,8 @@ label.required:after {
   font-size: 1.05em;
 }
 
-.touch-icon {
+.touch-icon,
+.touch-button {
   cursor: pointer;
   transition: 0.3s ease-in-out;
 }
@@ -100,8 +101,11 @@ label.required:after {
   color: #f29b18;
 }
 
-.orange-txt {
-  color: #f48f42;
+.text-box {
+  border-radius: 5px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 2px 10px 4px 10px;
 }
 
 .red-text-box {
@@ -143,6 +147,46 @@ label.required:after {
 
 .btn-primary-custom:hover {
   background-color: #26adaf;
+}
+
+.bg-color-1 {
+  background-color: #ed6d79;
+}
+
+.color-1 {
+  color: #fc99a2;
+}
+
+.bg-color-2 {
+  background-color: #77b29b;
+}
+
+.color-2 {
+  color: #add1c2;
+}
+
+.bg-color-3 {
+  background-color: #66d188;
+}
+
+.color-3 {
+  color: #a7eabd;
+}
+
+.bg-color-4 {
+  background-color: #78c4cb;
+}
+
+.color-4 {
+  color: #b1dee2;
+}
+
+.bg-color-5 {
+  background-color: #d58ed1;
+}
+
+.color-5 {
+  color: #e3b5e2;
 }
 
 table thead th {
