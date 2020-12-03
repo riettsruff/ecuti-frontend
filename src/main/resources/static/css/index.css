@@ -210,12 +210,9 @@
   width: 100%;
   height: 100%;
   border-radius: 5px;
-  /*background-color: #f9fefe;*/
   color: #fff;
-  /*border: 1px solid #eee;*/
   padding: 12px 20px;
   position: relative;
-  /*color: #999;*/
 }
 
 #main-content-wrapper .body-main-content .box-info .box-info-title {
