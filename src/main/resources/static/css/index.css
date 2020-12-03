@@ -249,6 +249,9 @@
 #main-content-wrapper .body-main-content .box-content {
   border-radius: 5px;
   margin-bottom: 15px;
+}
+
+#main-content-wrapper .body-main-content .box-content:not(.action-area) {
   background-color: #fff;
 }
 
