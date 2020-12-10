@@ -5,6 +5,7 @@
  */
 package com.metrodata.ecuti_frontend.controllers;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
     
     @GetMapping("/")
-    public String index() {
+    public String index(Authentication authentication) {
+        System.out.println("roles");
+        System.out.println(authentication.getAuthorities().toString());
         return "index";
     }
 
