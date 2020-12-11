@@ -4,7 +4,7 @@
     <h3>E-CUTI</h3>
   </div>
   <div class="body-sidebar">
-    <div sec:authorize="hasAuthority('staf')" class="sidebar-list-v1">
+    <div sec:authorize="hasAuthority('KARYAWAN')" class="sidebar-list-v1">
       <ul>
         <li th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/' ? ' active' : ''}">
           <a href="/">Dashboard</a>
@@ -17,7 +17,7 @@
         </li>
       </ul>
     </div>
-    <div sec:authorize="hasAnyAuthority('manager', 'sdm')" class="sidebar-list-v2">
+    <div sec:authorize="hasAnyAuthority('MANAJER', 'SDM')" class="sidebar-list-v2">
       <div class="inner-sidebar-list">
         <div class="inner-sidebar-list-body">
           <ul>
@@ -47,7 +47,7 @@
             <li th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/karyawan' ? ' active' : ''}">
               <a href="/karyawan">Karyawan</a>
             </li>
-            <li sec:authorize="hasAuthority('manager')" th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/karyawan/persetujuan-cuti' ? ' active' : ''}">
+            <li sec:authorize="hasAuthority('MANAJER')" th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/karyawan/persetujuan-cuti' ? ' active' : ''}">
               <a href="/karyawan/persetujuan-cuti">
                 <span class="link-text">Persetujuan Cuti</span>
                 <span class="count-value">2</span>
@@ -77,7 +77,7 @@
         <i class="fas fa-user"></i>
       </div>
       <div class="user-name">
-        <span class="name-text">Arib Mamdani</span>
+        <span class="name-text" th:text="${currentKaryawan.nama}"></span>
       </div>
       <div class="user-action-caret-down-icon">
         <i class="fas fa-caret-down"></i>
@@ -102,11 +102,11 @@
   </div>
   <div class="body-main-content">
     <div th:if="${#httpServletRequest.requestURI == '/'}" class="greetings-box">
-      <span class="greetings-text">Hi, <span class="user-name">Arib Mamdani</span></span>
+      <span class="greetings-text">Hi, <span class="user-name" th:text="${currentKaryawan.nama}"></span></span>
     </div>
 
     <!-- DASHBOARD START -->
-    <div sec:authorize="hasAuthority('staf')" th:if="${#httpServletRequest.requestURI == '/'}" class="content-area">
+    <div sec:authorize="hasAuthority('KARYAWAN')" th:if="${#httpServletRequest.requestURI == '/'}" class="content-area">
       <div class="box-info-row">
         <div class="box-info-col">
           <div class="box-info bg-color-1">
@@ -346,7 +346,7 @@
                 <span class="box-info-value">4</span>
               </div>
             </div>
-            <div sec:authorize="hasAuthority('manager')" class="box-info-col">
+            <div sec:authorize="hasAuthority('MANAJER')" class="box-info-col">
               <div class="box-info bg-color-5">
                 <span class="box-info-title">Persetujuan Cuti</span>
                 <span class="focus-circle-mask"></span>
@@ -504,7 +504,7 @@
     <!-- RIWAYAT CUTI END -->
 
     <!-- PERSETUJUAN CUTI START -->
-    <div sec:authorize="hasAuthority('manager')" th:if="${#httpServletRequest.requestURI == '/karyawan/persetujuan-cuti'}" class="content-area">
+    <div sec:authorize="hasAuthority('MANAJER')" th:if="${#httpServletRequest.requestURI == '/karyawan/persetujuan-cuti'}" class="content-area">
       <div class="export-wrapper">
         <div class="single-export-action excel-button touch-button">
           <span>Export to Excel</span>
@@ -564,8 +564,8 @@
     <!-- PERSETUJUAN CUTI END -->
 
     <!-- KARYAWAN START -->
-    <div sec:authorize="hasAnyAuthority('manager', 'sdm')" th:if="${#httpServletRequest.requestURI == '/karyawan'}" class="content-area">
-      <div sec:authorize="hasAuthority('sdm')" class="add-circle-button d-flex justify-content-center align-items-center touch-icon">
+    <div sec:authorize="hasAnyAuthority('MANAJER', 'SDM')" th:if="${#httpServletRequest.requestURI == '/karyawan'}" class="content-area">
+      <div sec:authorize="hasAuthority('SDM')" class="add-circle-button d-flex justify-content-center align-items-center touch-icon">
         <i class="fas fa-plus"></i>
       </div>
       <div class="export-wrapper">
@@ -599,10 +599,10 @@
               <span class="eye-icon action-icon touch-icon">
                 <i class="fas fa-eye"></i>
               </span>
-              <span sec:authorize="hasAuthority('sdm')" class="edit-icon action-icon touch-icon">
+              <span sec:authorize="hasAuthority('SDM')" class="edit-icon action-icon touch-icon">
                 <i class="fas fa-edit"></i>
               </span>
-              <span sec:authorize="hasAuthority('sdm')" class="trash-icon action-icon touch-icon">
+              <span sec:authorize="hasAuthority('SDM')" class="trash-icon action-icon touch-icon">
                 <i class="fas fa-trash"></i>
               </span>
             </td>
@@ -620,10 +620,10 @@
               <span class="eye-icon action-icon touch-icon">
                 <i class="fas fa-eye"></i>
               </span>
-              <span sec:authorize="hasAuthority('sdm')" class="edit-icon action-icon touch-icon">
+              <span sec:authorize="hasAuthority('SDM')" class="edit-icon action-icon touch-icon">
                 <i class="fas fa-edit"></i>
               </span>
-              <span sec:authorize="hasAuthority('sdm')" class="trash-icon action-icon touch-icon">
+              <span sec:authorize="hasAuthority('SDM')" class="trash-icon action-icon touch-icon">
                 <i class="fas fa-trash"></i>
               </span>
             </td>

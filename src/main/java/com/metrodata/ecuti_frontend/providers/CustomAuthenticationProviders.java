@@ -11,7 +11,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import com.metrodata.ecuti_frontend.entities.rest.Login;
-import com.metrodata.ecuti_frontend.services.AuthService;
+import com.metrodata.ecuti_frontend.services.rest.AuthRestService;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,7 +24,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 @Component
 public class CustomAuthenticationProviders implements AuthenticationProvider {
     @Autowired
-    AuthService authService;
+    AuthRestService authRestService;
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
@@ -35,7 +35,7 @@ public class CustomAuthenticationProviders implements AuthenticationProvider {
         Login login = new Login();
         login.setUsername(username);
         login.setPassword(password);
-        User user = authService.login(login);
+        User user = authRestService.login(login);
         System.out.println(user);
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
