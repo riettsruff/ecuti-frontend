@@ -24,7 +24,7 @@ async function axiosCustom(method, baseURL, data = null) {
  * @return {Object}       HTTP Response
 **/
 function saveCuti(data) {
-	return axiosCustom("POST", `${API_URI}/cuti/save`, data);
+  return axiosCustom("POST", `${API_URI}/cuti/save`, data);
 }
 
 /**
@@ -33,7 +33,7 @@ function saveCuti(data) {
  * @return {Object}       HTTP Response
 **/
 function saveDepartemen(data) {
-	return axiosCustom("POST", `${API_URI}/departemen`, data);
+  return axiosCustom("POST", `${API_URI}/departemen`, data);
 }
 
 /**
@@ -42,7 +42,7 @@ function saveDepartemen(data) {
  * @return {Object}       HTTP Response
 **/
 function saveJenisCuti(data) {
-	return axiosCustom("POST", `${API_URI}/jeniscuti`, data);
+  return axiosCustom("POST", `${API_URI}/jeniscuti`, data);
 }
 
 /**
@@ -51,7 +51,7 @@ function saveJenisCuti(data) {
  * @return {Object}       HTTP Response
 **/
 function saveKaryawan(data) {
-	return axiosCustom("POST", `${API_URI}/karyawan`, data);
+  return axiosCustom("POST", `${API_URI}/karyawan`, data);
 }
 
 /**
@@ -60,7 +60,7 @@ function saveKaryawan(data) {
  * @return {Object}       HTTP Response
 **/
 function updateKaryawan(data) {
-	return axiosCustom("PUT", `${API_URI}/karyawan/${data.id}`, data);
+  return axiosCustom("PUT", `${API_URI}/karyawan/${data.id}`, data);
 }
 
 /**
@@ -69,5 +69,5 @@ function updateKaryawan(data) {
  * @return {Object}      HTTP Response
 **/
 function deleteKaryawan(id) {
-	return axiosCustom("DELETE", `${API_URI}/karyawan/${id}`);
+  return axiosCustom("DELETE", `${API_URI}/karyawan/${id}`);
 }
