@@ -21,6 +21,7 @@ public class User implements UserDetails{
     private String email;
     private String role;
     private String password;
+    private String token;
     private boolean accountNonExpired, accountNonLocked, credentialsNonExpired, enabled;
     private Collection<? extends GrantedAuthority> authorities;
 
@@ -46,6 +47,14 @@ public class User implements UserDetails{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public String getToken() {
+        return token;
+    }
+    
+    public void setToken(String token) {
+        this.token = token;
     }
     
     @Override
