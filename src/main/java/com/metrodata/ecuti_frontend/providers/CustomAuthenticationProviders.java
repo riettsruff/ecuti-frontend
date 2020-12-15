@@ -36,7 +36,6 @@ public class CustomAuthenticationProviders implements AuthenticationProvider {
         login.setUsername(username);
         login.setPassword(password);
         User user = authRestService.login(login);
-        System.out.println(user);
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
         authorities.add(authority);

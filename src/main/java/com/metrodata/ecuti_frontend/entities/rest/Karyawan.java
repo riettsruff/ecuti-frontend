@@ -14,7 +14,7 @@ import lombok.Data;
  */
 @Data
 public class Karyawan {
-  private int id;
+  private int id, sisaCuti;
   private String nama, jabatan, status;
   private User user;
   private List<Cuti> cutiList;

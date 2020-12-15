@@ -84,17 +84,23 @@
       </div>
       <div class="user-action-area d-flex flex-column justify-content-center align-items-center">
         <ul class="user-action-list">
-          <li class="single-user-action my-profile-action">
+          <li class="single-user-action my-profile-action" data-bs-toggle="modal" data-bs-target="#modal-profile">
             <span class="user-action-icon ">
               <i class="fas fa-user"></i>
             </span>
             <span class="user-action-text">Profil Saya</span>
           </li>
-          <li class="single-user-action change-password-action">
+          <li class="single-user-action change-email-action" data-bs-toggle="modal" data-bs-target="#modal-change-email">
+            <span class="user-action-icon">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <span class="user-action-text">Ubah Email</span>
+          </li>
+          <li class="single-user-action change-password-action" data-bs-toggle="modal" data-bs-target="#modal-change-password">
             <span class="user-action-icon">
               <i class="fas fa-key"></i>
             </span>
-            <span class="user-action-text">Ganti Password</span>
+            <span class="user-action-text">Ubah Password</span>
           </li>
         </ul>
       </div>
@@ -114,17 +120,20 @@
             <span class="box-info-icon">
               <i class="fas fa-certificate"></i>
             </span>
-            <span class="box-info-value">12</span>
+            <span class="box-info-value" th:text="${currentKaryawan.sisaCuti}"></span>
           </div>
         </div>
         <div class="box-info-col">
-          <div class="box-info bg-color-2">
-            <span class="box-info-title">Riwayat Cuti</span>
-            <span class="box-info-icon color-2">
-              <i class="fas fa-history"></i>
-            </span>
-            <span class="box-info-value">7</span>
-          </div>
+          <a href="/pribadi/riwayat-cuti">
+            <div class="box-info bg-color-2">
+              <span class="box-info-title">Riwayat Cuti</span>
+              <span class="box-info-icon color-2">
+                <i class="fas fa-history"></i>
+              </span>
+              <span class="box-info-value" th:if="${currentKaryawan.cutiList == null}">0</span>
+              <span class="box-info-value" th:if="${currentKaryawan.cutiList != null}" th:text="${currentKaryawan.cutiList.size()}"></span>
+            </div>
+          </a>
         </div>
       </div>
       <div class="box-content">
@@ -133,7 +142,7 @@
         </div>
         <div class="box-content-body">
           <div class="box-cuti-row row">
-            <div class="box-cuti-col col-sm-6">
+            <!-- <div class="box-cuti-col col-sm-6">
               <div class="box-cuti">
                 <span class="cuti-text-box">CT-2020112008063021</span>
                 <div class="cuti-action">
@@ -206,7 +215,10 @@
                 </table>
                 <span class="cuti-status text-box alert-warning">Tertunda</span>
               </div>
-            </div>
+            </div> -->
+          </div>
+          <div class="box-cuti-col-info alert-info">
+            <span class="box-cuti-col-info-text">Belum ada pengajuan</span>
           </div>
         </div>
       </div>
@@ -224,17 +236,20 @@
                 <span class="box-info-icon color-1">
                   <i class="fas fa-certificate"></i>
                 </span>
-                <span class="box-info-value">12</span>
+                <span class="box-info-value" th:text="${currentKaryawan.sisaCuti}"></span>
               </div>
             </div>
             <div class="box-info-col">
-              <div class="box-info bg-color-2">
-                <span class="box-info-title">Riwayat Cuti</span>
-                <span class="box-info-icon color-2">
-                  <i class="fas fa-history"></i>
-                </span>
-                <span class="box-info-value">7</span>
-              </div>
+              <a href="/pribadi/riwayat-cuti">
+                <div class="box-info bg-color-2">
+                  <span class="box-info-title">Riwayat Cuti</span>
+                  <span class="box-info-icon color-2">
+                    <i class="fas fa-history"></i>
+                  </span>
+                  <span class="box-info-value" th:if="${currentKaryawan.cutiList == null}">0</span>
+                  <span class="box-info-value" th:if="${currentKaryawan.cutiList != null}" th:text="${currentKaryawan.cutiList.size()}"></span>
+                </div>
+              </a>
             </div>
           </div>
           <div class="box-content">
@@ -243,7 +258,7 @@
             </div>
             <div class="box-content-body">
               <div class="box-cuti-row row">
-                <div class="box-cuti-col col-sm-6">
+                <!-- <div class="box-cuti-col col-sm-6">
                   <div class="box-cuti">
                     <span class="cuti-text-box">CT-2020112008063021</span>
                     <div class="cuti-action">
@@ -316,7 +331,10 @@
                     </table>
                     <span class="cuti-status text-box alert-warning">Tertunda</span>
                   </div>
-                </div>
+                </div> -->
+              </div>
+              <div class="box-cuti-col-info alert-info">
+                <span class="box-cuti-col-info-text">Belum ada pengajuan</span>
               </div>
             </div>
           </div>
@@ -372,7 +390,7 @@
     <!-- DASHBOARD END -->
     
     <!-- PENGAJUAN CUTI START -->
-    <form th:if="${#httpServletRequest.requestURI == '/pribadi/pengajuan-cuti'}">
+    <form th:if="${#httpServletRequest.requestURI == '/pribadi/pengajuan-cuti'}" method="POST" id="form-pengajuan-cuti">
       <div class="box-content">
         <div class="box-content-head">
           <span class="head-text">Informasi Pribadi</span>
@@ -412,31 +430,29 @@
           <div class="form-group">
             <label for="infocuti__jeniscuti" class="required">Jenis Cuti</label>
             <select class="form-control" id="infocuti__jeniscuti">
-              <option>Opsi 1</option>
-              <option>Opsi 2</option>
-              <option>Opsi 3</option>
-              <option>Opsi 4</option>
-              <option>Opsi 5</option>
+              <option value="" disabled selected>- Pilih -</option>
+              <option th:each="jenisCutiTersedia : ${jenisCutiTersedia}" th:value="jenisCutiTersedia.name" th:text="${jenisCutiTersedia.name}" data-jatah="${jenisCutiTersedia.jumlahJatahCuti}"></option>
+              <option value="0" data-jatah="0">Lainnya</option>
             </select>
           </div>
           <div class="form-group row">
             <div class="col-md-6">
               <label for="infocuti__tanggalmulaicuti" class="required">Tanggal Mulai Cuti</label>
-              <input type="text" class="form-control" id="infocuti__tanggalmulaicuti" data-toggle="datepicker">
+              <input type="text" class="form-control" id="infocuti__tanggalmulaicuti" data-toggle="datepicker" data-required="required" data-label="Tanggal Mulai Cuti">
             </div>
             <div class="col-md-6">
               <label for="infocuti__tanggalselesaicuti" class="required">Tanggal Selesai Cuti</label>
-              <input type="text" class="form-control" id="infocuti__tanggalselesaicuti" data-toggle="datepicker">
+              <input type="text" class="form-control" id="infocuti__tanggalselesaicuti" data-toggle="datepicker" data-required="required" data-label="Tanggal Selesai Cuti">
             </div>
           </div>
           <div class="form-group row">
             <div class="col-md-6">
               <label for="infocuti__jumlahcutidiambil" class="required">Jumlah Cuti Diambil</label>
-              <input type="text" class="form-control" id="infocuti__jumlahcutidiambil" disabled>
+              <input type="text" class="form-control" id="infocuti__jumlahcutidiambil" disabled data-required="required" data-label="Jumlah Cuti Diambil">
             </div>
             <div class="col-md-6">
               <label for="infocuti__sisacuti" class="required">Sisa Cuti</label>
-              <input type="text" class="form-control" id="infocuti__sisacuti" disabled>
+              <input type="text" class="form-control" id="infocuti__sisacuti" disabled data-required="required" data-label="Sisa Cuti">
             </div>
           </div>
           <div class="form-group">
@@ -450,7 +466,7 @@
         </div>
       </div>
       <div class="box-content d-flex justify-content-end action-area">
-        <button type="submit" class="btn-primary-custom">Ajukan</button>
+        <button type="button" class="submit-button btn-primary-custom">Ajukan</button>
       </div>
     </form>
     <!-- PENGAJUAN CUTI END -->
@@ -636,3 +652,198 @@
   </div>
 </div>
 <!-- MAIN CONTENT WRAPPER END -->
+
+<!-- MODAL PROFILE START -->
+<div class="modal fade" id="modal-profile" tabindex="-1" aria-hidden="true" th:fragment="modal-profile">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Profil Saya</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="modal-body-table-info">
+          <tbody>
+            <tr data-row="nama">
+              <td class="info-label">Nama</td>
+              <td class="info-value" th:text="${currentKaryawan.nama}"></td>
+            </tr>
+            <tr data-row="jabatan">
+              <td class="info-label">Jabatan</td>
+              <td class="info-value" th:text="${currentKaryawan.jabatan}"></td>
+            </tr>
+            <tr data-row="status">
+              <td class="info-label">Status</td>
+              <td class="info-value">
+                <span class="text-box alert-success" th:if="${currentKaryawan.status == 'aktif'}">Aktif</span>
+                <span class="text-box alert-danger" th:if="${currentKaryawan.status == 'nonaktif'}">NonAktif</span>
+                <span class="text-box alert-info" th:if="${currentKaryawan.status == 'cuti'}">Cuti</span>
+              </td>
+            </tr>
+            <tr data-row="username">
+              <td class="info-label">Username</td>
+              <td class="info-value" th:text="${currentKaryawan.user.username}"></td>
+            </tr>
+            <tr data-row="email">
+              <td class="info-label">Email</td>
+              <td class="info-value" th:text="${currentKaryawan.user.email}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- MODAL PROFILE END -->
+
+<!-- MODAL CHANGE EMAIL START -->
+<div class="modal fade" id="modal-change-email" tabindex="-1" aria-hidden="true" th:fragment="modal-change-email">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" id="form-change-email">
+        <div class="modal-header">
+          <h5 class="modal-title">Ubah Email</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="changeemail__newemail">Email Baru</label>
+            <input type="text" id="changeemail__newemail" class="form-control" data-label="Email" data-format="EMAIL" data-required="required" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="submit-button btn-primary-custom">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- MODAL CHANGE EMAIL END -->
+
+<!-- MODAL CHANGE PASSWORD START -->
+<div class="modal fade" id="modal-change-password" tabindex="-1" aria-hidden="true" th:fragment="modal-change-password">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" id="form-change-password">
+        <div class="modal-header">
+          <h5 class="modal-title">Ubah Password</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="changepassword__oldpass">Password Lama</label>
+            <input type="text" id="changepassword__oldpass" data-required="required" data-label="Password Lama" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="changepassword__newpass">Password Baru</label>
+            <input type="text" id="changepassword__newpass" data-required="required" data-label="Password Baru" class="form-control" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="submit-button btn-primary-custom">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- MODAL CHANGE PASSWORD END -->
+
+<!-- MODAL CUTI START -->
+<div class="modal fade" id="modal-cuti" tabindex="-1" aria-hidden="true" th:fragment="modal-cuti">
+  
+</div>
+<!-- MODAL CUTI END -->
+
+<!-- MODAL EMPLOYEE START -->
+<div class="modal fade" id="modal-employee" tabindex="-1" aria-hidden="true" th:fragment="modal-employee">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" id="form-employee">
+        <div class="modal-header">
+          <h5 class="modal-title">Form Karyawan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="karyawawan__nama">Nama</label>
+            <input type="text" id="karyawawan__nama" data-required="required" data-label="Nama" class="form-control" />
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="karyawan__jabatan">Jabatan</label>
+              <select id="karyawan__jabatan" class="form-control" data-label="Jabatan" data-required="required">
+                <option value="KARYAWAN">Karyawan (Staf)</option>
+                <option value="MANAJER">Manajer</option>
+                <option value="SDM">SDM</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="karyawan__departemen">Departemen</label>
+              <select id="karyawan__departemen" data-label="Departemen" data-required="required">
+                <option value="Opsi 1">Opsi 1</option>
+                <option value="Opsi 2">Opsi 2</option>
+                <option value="Opsi 3">Opsi 3</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="karyawawan__email">Email</label>
+            <input type="text" id="karyawawan__email" data-required="required" data-label="Email" data-format="EMAIL" class="form-control" />
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="karyawawan__username">Username</label>
+              <input type="text" id="karyawawan__username" data-required="required" data-label="Username" class="form-control" />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="karyawan__password">Password</label>
+              <input type="text" id="karyawan__password" data-label="Password" class="form-control" disabled  />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="submit-button btn-primary-custom">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- MODAL EMPLOYEE END -->
+
+<!-- MODAL KIND OF LEAVE START -->
+<div class="modal fade" id="modal-kind-of-leave" tabindex="-1" aria-hidden="true" th:fragment="modal-kind-of-leave">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" id="form-kind-of-leave">
+        <div class="modal-header">
+          <h5 class="modal-title">Form Jenis Cuti</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="kindofleave__nama">Nama Jenis</label>
+            <input type="text" id="kindofleave__nama" data-required="required" data-label="Nama Jenis" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="kindofleave__jumlahjatahcuti">Jumlah Jatah Cuti</label>
+            <input type="text" id="kindofleave__jumlahjatahcuti" data-required="required" data-label="Jumlah Jatah Cuti" class="form-control" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="submit-button btn-primary-custom">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- MODAL KIND OF LEAVE END -->

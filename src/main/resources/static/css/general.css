@@ -50,6 +50,16 @@ button:active {
   border: none !important;
 }
 
+.btn-close {
+  font-size: 1.2em;
+  border-radius: 5px !important;
+}
+
+.btn-close [aria-hidden] {
+  position: relative;
+  top: -1px;
+}
+
 .form-control:disabled, .form-control[readonly] {
   background-color: #f8f8f8;
 }

@@ -1,3 +1,5 @@
+console.log(bearerToken);
+
 const API_URI = "http://206.189.94.183:8085";
 
 /**
@@ -7,42 +9,18 @@ const API_URI = "http://206.189.94.183:8085";
  * @param  {Object} data    Body Request
  * @return {Object}         HTTP Response
 **/
-async function axiosCustom(method, baseURL, data = null) {
-  const request = await axios({
+async function fetchCustom(method, baseURL, data = null) {
+  fetch(baseURL, {
     method,
-    baseURL,
-    data
-  });
-
-  const response = request;
-  return response;
-}
-
-/**
- * Handle save "Cuti" data
- * @param  {Object} data  Body Request
- * @return {Object}       HTTP Response
-**/
-function saveCuti(data) {
-  return axiosCustom("POST", `${API_URI}/cuti/save`, data);
-}
-
-/**
- * Handle save "Departemen" data
- * @param  {Object} data  Body Request
- * @return {Object}       HTTP Response
-**/
-function saveDepartemen(data) {
-  return axiosCustom("POST", `${API_URI}/departemen`, data);
-}
-
-/**
- * Handle save "Jenis Cuti" data
- * @param  {Object} data  Body Request
- * @return {Object}       HTTP Response
-**/
-function saveJenisCuti(data) {
-  return axiosCustom("POST", `${API_URI}/jeniscuti`, data);
+    headers: {
+      "Content-type": "application/json",
+       Authorization: `Bearer ${bearerToken}`
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(err => console.log(err));
 }
 
 /**
@@ -50,8 +28,8 @@ function saveJenisCuti(data) {
  * @param  {Object} data  Body Request
  * @return {Object}       HTTP Response
 **/
-function saveKaryawan(data) {
-  return axiosCustom("POST", `${API_URI}/karyawan`, data);
+function saveKaryawan(data,) {
+  return fetchCustom("POST", `${API_URI}/karyawan`, data);
 }
 
 /**
@@ -60,7 +38,7 @@ function saveKaryawan(data) {
  * @return {Object}       HTTP Response
 **/
 function updateKaryawan(data) {
-  return axiosCustom("PUT", `${API_URI}/karyawan/${data.id}`, data);
+  return fetchCustom("PUT", `${API_URI}/karyawan/${data.id}`, data);
 }
 
 /**
@@ -69,5 +47,99 @@ function updateKaryawan(data) {
  * @return {Object}      HTTP Response
 **/
 function deleteKaryawan(id) {
-  return axiosCustom("DELETE", `${API_URI}/karyawan/${id}`);
+  return fetchCustom("DELETE", `${API_URI}/karyawan/${id}`);
+}
+
+/**
+ * Handle update "Email Karyawan" data
+ * @param  {Object} data  Body Request
+ * @param  {Integer} id   id from Karyawan
+ * @return {Object}       HTTP Response
+**/
+function updateEmailKaryawan(data, id) {
+  return fetchCustom("PUT", `${API_URI}/karyawan/${id}/email?email=${data.email}`, data);
+}
+
+/**
+ * Handle post "Ubah Password" data
+ * @param  {Object} data  Body Request
+ * @return {Object}       HTTP Response
+**/
+function changePassword(data) {
+  return fetchCustom("POST", `${API_URI}/auth/changepassword`, data);
+}
+
+/**
+ * Handle save "Jenis Cuti" data
+ * @param  {Object} data  Body Request
+ * @return {Object}       HTTP Response
+**/
+function saveJenisCuti(data) {
+  return fetchCustom("POST", `${API_URI}/jenisCuti/save`, data);
+}
+
+/**
+ * Handle update "Jenis cuti" data
+ * @param  {Object} data  Body Request
+ * @param  {Integer} id   jenisCutiId
+ * @return {Object}       HTTP Response
+**/
+function updateJenisCuti(data, id) {
+  return fetchCustom("PUT", `${API_URI}/jenisCuti/${id}`, data);
+}
+
+/**
+ * Handle delete "Jenis cuti" data by id
+ * @param  {Object} data  Body Request
+ * @param  {Integer} id   jenisCutiId
+ * @return {Object}       HTTP Response
+**/
+function deleteJenisCuti(data, id) {
+  return fetchCustom("DELETE", `${API_URI}/jenisCuti/${id}`, data);
+}
+
+/**
+ * Handle save "Departemen" data
+ * @param  {Object} data  Body Request
+ * @return {Object}       HTTP Response
+**/
+function saveDepartemen(data) {
+  return fetchCustom("POST", `${API_URI}/departemen/save`, data);
+}
+
+/**
+ * Handle save "Cuti" data
+ * @param  {Object} data  Body Request
+ * @return {Object}       HTTP Response
+**/
+function saveCuti(data) {
+  return fetchCustom("POST", `${API_URI}/cuti/save`, data);
+}
+
+/**
+ * Handle save "Persetujuan Cuti" data
+ * @param  {Object} data  Body Request
+ * @return {Object}       HTTP Response
+**/
+function saveCutiApproval(data) {
+  return fetchCustom("POST", `${API_URI}/cuti/approval`, data);
+}
+
+/**
+ * Handle update "Cuti" data by id
+ * @param  {Object} data  Body Request
+ * @param  {Integer} id   cutiId
+ * @return {Object}       HTTP Response
+**/
+function updateCuti(data, id) {
+  return fetchCustom("PUT", `${API_URI}/cuti/${id}`, data);
+}
+
+/**
+ * Handle delete "Cuti" data by id
+ * @param  {Integer} id   cutiId
+ * @return {Object}       HTTP Response
+**/
+function deleteCuti(id) {
+  return fetchCustom("DELETE", `${API_URI}/cuti/${id}`, data);
 }

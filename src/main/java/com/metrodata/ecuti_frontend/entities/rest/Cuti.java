@@ -17,7 +17,6 @@ public class Cuti {
   private int id;
   private String catatan, keterangan, status, tanggalMulai, tanggalPengajuan, tanggalSelesai;
   private JenisCuti jenisCuti;
-  private List<Cuti> cutiList;
   private Karyawan karyawan;
   private boolean perluPengganti;
 }
