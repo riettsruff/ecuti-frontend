@@ -1,5 +1,3 @@
-console.log(bearerToken);
-
 const API_URI = "http://206.189.94.183:8085";
 
 /**
@@ -10,17 +8,40 @@ const API_URI = "http://206.189.94.183:8085";
  * @return {Object}         HTTP Response
 **/
 async function fetchCustom(method, baseURL, data = null) {
-  fetch(baseURL, {
+  const request = await axios({
     method,
+    url: baseURL,
     headers: {
       "Content-type": "application/json",
-       Authorization: `Bearer ${bearerToken}`
+      Authorization: `Bearer ${bearerToken}`
     },
-    body: JSON.stringify(data)
-  })
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(err => console.log(err));
+    data: JSON.stringify(data)
+  });
+
+  const response = request;
+  return response;
+
+  // fetch(baseURL, {
+  //   method,
+  //   headers: {
+  //     "Content-type": "application/json",
+  //      Authorization: `Bearer ${bearerToken}`
+  //   },
+  //   body: JSON.stringify(data)
+  // })
+  // .then(response => response.json())
+  // .then(data => {
+  //   console.log()
+  // });
+  // fetch(baseURL, {
+  //   method,
+  //   body: data,
+  //   headers: {
+  //     "Content-type": "application/json",
+  //      Authorization: `Bearer ${bearerToken}`
+  //   }
+  // }).then(res => res.json())
+  // .then(json => console.log(json));
 }
 
 /**
@@ -28,7 +49,7 @@ async function fetchCustom(method, baseURL, data = null) {
  * @param  {Object} data  Body Request
  * @return {Object}       HTTP Response
 **/
-function saveKaryawan(data,) {
+function saveKaryawan(data) {
   return fetchCustom("POST", `${API_URI}/karyawan`, data);
 }
 
@@ -75,7 +96,7 @@ function changePassword(data) {
  * @return {Object}       HTTP Response
 **/
 function saveJenisCuti(data) {
-  return fetchCustom("POST", `${API_URI}/jenisCuti/save`, data);
+  return fetchCustom("POST", `${API_URI}/jeniscuti/save`, data);
 }
 
 /**
@@ -85,7 +106,7 @@ function saveJenisCuti(data) {
  * @return {Object}       HTTP Response
 **/
 function updateJenisCuti(data, id) {
-  return fetchCustom("PUT", `${API_URI}/jenisCuti/${id}`, data);
+  return fetchCustom("PUT", `${API_URI}/jeniscuti/${id}`, data);
 }
 
 /**
@@ -95,7 +116,7 @@ function updateJenisCuti(data, id) {
  * @return {Object}       HTTP Response
 **/
 function deleteJenisCuti(data, id) {
-  return fetchCustom("DELETE", `${API_URI}/jenisCuti/${id}`, data);
+  return fetchCustom("DELETE", `${API_URI}/jeniscuti/${id}`, data);
 }
 
 /**
@@ -143,3 +164,9 @@ function updateCuti(data, id) {
 function deleteCuti(id) {
   return fetchCustom("DELETE", `${API_URI}/cuti/${id}`, data);
 }
+
+// (async function() {
+//   var oe = await fetchCustom("POST", `${API_URI}/jeniscuti/save`, { nama: "Sunatan", jumlahJatahCuti: 3 });
+
+//   console.log(oe);
+// })();
