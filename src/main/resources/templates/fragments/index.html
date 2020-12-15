@@ -56,6 +56,16 @@
             <li th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/karyawan/riwayat-cuti' ? ' active' : ''}">
               <a href="/karyawan/riwayat-cuti">Riwayat Cuti</a>
             </li>
+            <li sec:authorize="hasAuthority('SDM')" th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/karyawan/jenis-cuti' ? ' active' : ''}">
+              <a href="/karyawan/persetujuan-cuti">
+                <span class="link-text">Jenis Cuti</span>
+              </a>
+            </li>
+            <li sec:authorize="hasAuthority('SDM')" th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/karyawan/departemen' ? ' active' : ''}">
+              <a href="/karyawan/persetujuan-cuti">
+                <span class="link-text">Departemen</span>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -578,6 +588,66 @@
       </table>
     </div>
     <!-- PERSETUJUAN CUTI END -->
+
+    <!-- JENIS CUTI START -->
+    <div sec:authorize="hasAuthority('SDM')" th:if="${#httpServletRequest.requestURI == '/karyawan/jenis-cuti'}" class="content-area">
+      <table id="jenis-cuti-table" class="table hover">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Jumlah Jatah Cuti</th>
+            <th>Opsi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Pernikahan</td>
+            <td>3</td>
+            <td>
+              <span class="edit-icon action-icon touch-icon">
+                <i class="fas fa-edit"></i>
+              </span>
+              <span class="times-icon action-icon touch-icon">
+                <i class="fas fa-times"></i>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- JENIS CUTI END -->
+
+    <!-- DEPARTEMEN START -->
+    <div sec:authorize="hasAuthority('SDM')" th:if="${#httpServletRequest.requestURI == '/karyawan/departemen'}" class="content-area">
+      <table id="jenis-cuti-table" class="table hover">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Departemen</th>
+            <th>Manajer</th>
+            <th>Opsi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>SDX 1</td>
+            <td>Budi Brilian</td>
+            <td>
+              <span class="edit-icon action-icon touch-icon">
+                <i class="fas fa-edit"></i>
+              </span>
+              <span class="times-icon action-icon touch-icon">
+                <i class="fas fa-times"></i>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- DEPARTEMEN END -->
 
     <!-- KARYAWAN START -->
     <div sec:authorize="hasAnyAuthority('MANAJER', 'SDM')" th:if="${#httpServletRequest.requestURI == '/karyawan'}" class="content-area">
