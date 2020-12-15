@@ -74,10 +74,13 @@ $(document).ready(function() {
 
       const _updateEmailKaryawan = await updateEmailKaryawan(requestBody, currentIdKaryawan);
 
-      console.log(_updateEmailKaryawan); 
+      if(_updateEmailKaryawan.data) {
+        swal("Sukses!", "Update email berhasil", "success");
+      } else {
+        swal("Oops!", "Update password gagal", "warning");
+      }
     }).catch(err => {
-      console.log(err);
-      // swal("Oops!", err, "warning");
+      swal("Oops!", err, "warning");
     });
   });
 
@@ -104,7 +107,11 @@ $(document).ready(function() {
 
       const _changePassword = await changePassword({...requestBody, karyawanId: currentIdKaryawan});
 
-      console.log(_changePassword); 
+      if(_changePassword.data) {
+        swal("Sukses!", "Update password berhasil", "success");
+      } else {
+        swal("Oops!", "Update password gagal", "success");
+      }
     }).catch(err => {
       swal("Oops!", err, "warning");
     });
