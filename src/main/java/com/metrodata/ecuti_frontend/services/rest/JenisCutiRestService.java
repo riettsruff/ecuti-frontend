@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.metrodata.ecuti_frontend.entities.rest.JenisCuti;
+import com.metrodata.ecuti_frontend.services.HeaderService;
 import java.util.List;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -28,11 +29,13 @@ public class JenisCutiRestService {
   @Value("${api.uri}")
   private String uri;
   
+  HeaderService headerService = new HeaderService();
+  
   public List<JenisCuti> getAllJenisCuti() {
     ResponseEntity<List<JenisCuti>> response = restTemplate.exchange(
       uri + "/jenisCuti",
       HttpMethod.GET,
-      null,
+      headerService.getBearerTokenHeader(),
       new ParameterizedTypeReference<List<JenisCuti>>() {}
     );
 
@@ -43,7 +46,7 @@ public class JenisCutiRestService {
     ResponseEntity<JenisCuti> response = restTemplate.exchange(
       uri + "/jenisCuti/" + id,
       HttpMethod.GET,
-      null,
+      headerService.getBearerTokenHeader(),
       new ParameterizedTypeReference<JenisCuti>() {}
     );
 

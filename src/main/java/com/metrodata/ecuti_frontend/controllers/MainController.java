@@ -26,8 +26,7 @@ public class MainController {
     
     @GetMapping("/")
     public String index(Authentication authentication, Model model) {
-      System.out.println("roles");
-      System.out.println(authentication.getAuthorities().toString());
+//    System.out.println(authentication.getAuthorities().toString());
       
       User principal = (User) authentication.getPrincipal();
       Karyawan currentKaryawan = karyawanRestService.getKaryawanById(principal.getId());
@@ -43,12 +42,22 @@ public class MainController {
     }
 
     @GetMapping("/pribadi/**")
-    public String indexPribadi() {
+    public String indexPribadi(Authentication authentication, Model model) {
+      User principal = (User) authentication.getPrincipal();
+      Karyawan currentKaryawan = karyawanRestService.getKaryawanById(principal.getId());
+      
+      model.addAttribute("currentKaryawan", currentKaryawan);
+      
       return "index";
     }
 
     @GetMapping("/karyawan/**")
-    public String indexKaryawan() {
+    public String indexKaryawan(Authentication authentication, Model model) {
+      User principal = (User) authentication.getPrincipal();
+      Karyawan currentKaryawan = karyawanRestService.getKaryawanById(principal.getId());
+      
+      model.addAttribute("currentKaryawan", currentKaryawan);
+      
       return "index";
     }
     

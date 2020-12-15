@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.metrodata.ecuti_frontend.entities.rest.Karyawan;
+import com.metrodata.ecuti_frontend.services.HeaderService;
 
 /**
  *
@@ -28,22 +29,24 @@ public class KaryawanRestService {
   @Value("${api.uri}")
   private String uri;
   
+  HeaderService headerService = new HeaderService();
+  
   public List<Karyawan> getAllKaryawan() {
     ResponseEntity<List<Karyawan>> response = restTemplate.exchange(
       uri + "/karyawan",
       HttpMethod.GET,
-      null,
+      headerService.getBearerTokenHeader(),
       new ParameterizedTypeReference<List<Karyawan>>() {}
     );
 
     return response.getBody();
   }
   
-  public Karyawan getKaryawanById(int id) {
+  public Karyawan getKaryawanById(int id) {  
     ResponseEntity<Karyawan> response = restTemplate.exchange(
       uri + "/karyawan/" + id,
       HttpMethod.GET,
-      null,
+      headerService.getBearerTokenHeader(),
       new ParameterizedTypeReference<Karyawan>() {}
     );
 

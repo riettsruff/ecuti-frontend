@@ -6,8 +6,8 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
 
 /**
  * Handle input validation
- * @param  {Object} htmlInput  HTML Input
- * @return {Function}          Promise callback
+ * @param  {HTMLElement} htmlInput  HTML Input
+ * @return {Function}               Promise callback
 **/
 function inputValidation(htmlInput) {
   return new Promise((resolve, reject) => {

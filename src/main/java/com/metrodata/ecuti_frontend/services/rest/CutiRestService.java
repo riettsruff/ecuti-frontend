@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.metrodata.ecuti_frontend.entities.rest.Cuti;
+import com.metrodata.ecuti_frontend.services.HeaderService;
 
 /**
  *
@@ -28,11 +29,13 @@ public class CutiRestService {
   @Value("${api.uri}")
   private String uri;
   
+  HeaderService headerService = new HeaderService();
+  
   public List<Cuti> getAllCuti() {
     ResponseEntity<List<Cuti>> response = restTemplate.exchange(
       uri + "/cuti",
       HttpMethod.GET,
-      null,
+      headerService.getBearerTokenHeader(),
       new ParameterizedTypeReference<List<Cuti>>() {}
     );
 
@@ -43,7 +46,7 @@ public class CutiRestService {
     ResponseEntity<Cuti> response = restTemplate.exchange(
       uri + "/cuti/" + id,
       HttpMethod.GET,
-      null,
+      headerService.getBearerTokenHeader(),
       new ParameterizedTypeReference<Cuti>() {}
     );
 
