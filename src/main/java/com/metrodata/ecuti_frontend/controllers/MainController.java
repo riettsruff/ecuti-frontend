@@ -31,6 +31,7 @@ public class MainController {
   
     @Autowired
     KaryawanRestService karyawanRestService;
+    @Autowired
     JenisCutiRestService jenisCutiRestService;
     
     @GetMapping("/")
@@ -41,7 +42,6 @@ public class MainController {
       model.addAttribute("currentKaryawan", currentKaryawan);
       model.addAttribute("bearerToken", principal.getToken());
 //      model.addAttribute("jenisCutiTersedia", jenisCutiRestService.getAllJenisCuti());
-      
 //      System.out.println(jenisCutiRestService.getAllJenisCuti());
       
       
@@ -72,6 +72,7 @@ public class MainController {
       Karyawan currentKaryawan = karyawanRestService.getKaryawanById(principal.getId());
       
       model.addAttribute("currentKaryawan", currentKaryawan);
+      model.addAttribute("jenisCutiTersedia", jenisCutiRestService.getAllJenisCuti());
       
       return "index";
     }
