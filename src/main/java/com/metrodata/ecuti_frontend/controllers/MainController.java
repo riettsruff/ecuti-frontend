@@ -73,6 +73,7 @@ public class MainController {
       
       model.addAttribute("currentKaryawan", currentKaryawan);
       model.addAttribute("jenisCutiTersedia", jenisCutiRestService.getAllJenisCuti());
+      model.addAttribute("bearerToken", principal.getToken());
       
       return "index";
     }
@@ -83,6 +84,7 @@ public class MainController {
       Karyawan currentKaryawan = karyawanRestService.getKaryawanById(principal.getId());
       
       model.addAttribute("currentKaryawan", currentKaryawan);
+      model.addAttribute("bearerToken", principal.getToken());
       
       return "index";
     }
