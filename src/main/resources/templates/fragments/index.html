@@ -427,7 +427,7 @@
           <div class="form-group row">
             <label for="infopribadi__bagian" class="col-md-3 col-form-label required">Bagian</label>
             <div class="col-md-9">
-              <input type="text" class="form-control" id="infopribadi__bagian" disabled>
+              <input th:value="${currentKaryawan.departemen.nama}" type="text" class="form-control" id="infopribadi__bagian" disabled>
             </div>
           </div>
         </div>
