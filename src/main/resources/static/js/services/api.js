@@ -1,4 +1,4 @@
-console.log(bearerToken);
+// console.log(bearerToken);
 
 const API_URI = "http://206.189.94.183:8085";
 
