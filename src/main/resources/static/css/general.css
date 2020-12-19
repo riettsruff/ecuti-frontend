@@ -172,6 +172,18 @@ label.required:after {
   background-color: #26adaf;
 }
 
+.warning-color-custom,
+.warning-color-custom:hover {
+  color: #fff !important;
+  background-color: salmon !important;
+}
+
+.netral-color-custom,
+.netral-color-custom:hover {
+  background-color: #ddd !important;
+  color: #444 !important;
+}
+
 .bg-color-1 {
   background-color: #ed6d79;
 }

@@ -53,4 +53,15 @@ public class KaryawanRestService {
     return response.getBody();
   }
   
+  public List<Karyawan> getByDepartemenId(int id) {
+    ResponseEntity<List<Karyawan>> response = restTemplate.exchange(
+      uri + "/karyawan/" + id + "/departemen",
+      HttpMethod.GET,
+      headerService.getBearerTokenHeader(),
+      new ParameterizedTypeReference<List<Karyawan>>() {}
+    );
+
+    return response.getBody();
+  }
+  
 }

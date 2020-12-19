@@ -9,7 +9,7 @@ const API_URI = "http://206.189.94.183:8085";
  * @param  {Object} data    Body Request
  * @return {Object}         HTTP Response
 **/
-async function fetchCustom(method, baseURL, data = null) {
+async function axiosCustom(method, baseURL, data = null) {
   const request = await axios({
     method,
     url: baseURL,
@@ -30,7 +30,7 @@ async function fetchCustom(method, baseURL, data = null) {
  * @return {Object}       HTTP Response
 **/
 function saveKaryawan(data) {
-  return fetchCustom("POST", `${API_URI}/karyawan`, data);
+  return axiosCustom("POST", `${API_URI}/karyawan`, data);
 }
 
 /**
@@ -39,26 +39,26 @@ function saveKaryawan(data) {
  * @return {Object}       HTTP Response
 **/
 function updateKaryawan(data) {
-  return fetchCustom("PUT", `${API_URI}/karyawan/${data.id}`, data);
+  return axiosCustom("PUT", `${API_URI}/karyawan/${data.id}`, data);
 }
 
 /**
  * Handle delete "Karyawan" data by id
- * @param  {Integer} id  id from Karyawan
+ * @param  {Integer} id  Karyawan Id
  * @return {Object}      HTTP Response
 **/
 function deleteKaryawan(id) {
-  return fetchCustom("DELETE", `${API_URI}/karyawan/${id}`);
+  return axiosCustom("DELETE", `${API_URI}/karyawan/${id}`);
 }
 
 /**
  * Handle update "Email Karyawan" data
  * @param  {Object} data  Body Request
- * @param  {Integer} id   id from Karyawan
+ * @param  {Integer} id   Karyawan Id
  * @return {Object}       HTTP Response
 **/
 function updateEmailKaryawan(data, id) {
-  return fetchCustom("PUT", `${API_URI}/karyawan/${id}/email?email=${data.email}`, data);
+  return axiosCustom("PUT", `${API_URI}/karyawan/${id}/email?email=${data.email}`, data);
 }
 
 /**
@@ -67,7 +67,7 @@ function updateEmailKaryawan(data, id) {
  * @return {Object}       HTTP Response
 **/
 function changePassword(data) {
-  return fetchCustom("POST", `${API_URI}/auth/changepassword`, data);
+  return axiosCustom("POST", `${API_URI}/auth/changepassword`, data);
 }
 
 /**
@@ -76,7 +76,7 @@ function changePassword(data) {
  * @return {Object}       HTTP Response
 **/
 function saveJenisCuti(data) {
-  return fetchCustom("POST", `${API_URI}/jeniscuti/save`, data);
+  return axiosCustom("POST", `${API_URI}/jenisCuti/save`, data);
 }
 
 /**
@@ -86,26 +86,54 @@ function saveJenisCuti(data) {
  * @return {Object}       HTTP Response
 **/
 function updateJenisCuti(data, id) {
-  return fetchCustom("PUT", `${API_URI}/jeniscuti/${id}`, data);
+  return axiosCustom("PUT", `${API_URI}/jenisCuti/${id}`, data);
+}
+
+/**
+ * Handle get "Jenis cuti" data by id
+ * @param  {Integer} id   jenisCutiId
+ * @return {Object}       HTTP Response
+**/
+function getJenisCutiById(id) {
+  return axiosCustom("GET", `${API_URI}/jenisCuti/${id}`);
 }
 
 /**
  * Handle delete "Jenis cuti" data by id
- * @param  {Object} data  Body Request
  * @param  {Integer} id   jenisCutiId
  * @return {Object}       HTTP Response
 **/
-function deleteJenisCuti(data, id) {
-  return fetchCustom("DELETE", `${API_URI}/jeniscuti/${id}`, data);
+function deleteJenisCutiById(id) {
+  return axiosCustom("DELETE", `${API_URI}/jenisCuti/${id}`);
 }
 
 /**
  * Handle save "Departemen" data
  * @param  {Object} data  Body Request
+ * @param  {Integer} id   Departemen Id
  * @return {Object}       HTTP Response
 **/
-function saveDepartemen(data) {
-  return fetchCustom("POST", `${API_URI}/departemen/save`, data);
+function saveDepartemen(data, id) {
+  return axiosCustom("POST", `${API_URI}/departemen/save`, data);
+}
+
+/**
+ * Handle get "Departemen" data by id
+ * @param  {Integer} id   Departemen Id
+ * @return {Object}       HTTP Response
+**/
+function getDepartemenById(id) {
+  return axiosCustom("GET", `${API_URI}/departemen/${id}`);
+}
+
+/**
+ * Handle update "Departemen" data by id
+ * @param  {Object} data  Body Request
+ * @param  {Integer} id   Departemen Id
+ * @return {Object}       HTTP Response
+**/
+function updateDepartemen(data, id) {
+  return axiosCustom("PUT", `${API_URI}/departemen/${id}`, data);
 }
 
 /**
@@ -114,7 +142,7 @@ function saveDepartemen(data) {
  * @return {Object}       HTTP Response
 **/
 function saveCuti(data) {
-  return fetchCustom("POST", `${API_URI}/cuti/save`, data);
+  return axiosCustom("POST", `${API_URI}/cuti/save`, data);
 }
 
 /**
@@ -123,7 +151,7 @@ function saveCuti(data) {
  * @return {Object}       HTTP Response
 **/
 function saveCutiApproval(data) {
-  return fetchCustom("POST", `${API_URI}/cuti/approval`, data);
+  return axiosCustom("POST", `${API_URI}/cuti/approval`, data);
 }
 
 /**
@@ -133,7 +161,7 @@ function saveCutiApproval(data) {
  * @return {Object}       HTTP Response
 **/
 function updateCuti(data, id) {
-  return fetchCustom("PUT", `${API_URI}/cuti/${id}`, data);
+  return axiosCustom("PUT", `${API_URI}/cuti/${id}`, data);
 }
 
 /**
@@ -142,5 +170,23 @@ function updateCuti(data, id) {
  * @return {Object}       HTTP Response
 **/
 function deleteCuti(id) {
-  return fetchCustom("DELETE", `${API_URI}/cuti/${id}`, data);
+  return axiosCustom("DELETE", `${API_URI}/cuti/${id}`, data);
+}
+
+/**
+ * Handle get "Cuti" data by id
+ * @param  {Integer} id   cutiId
+ * @return {Object}       HTTP Response
+**/
+function getCutiById(id) {
+  return axiosCustom("GET", `${API_URI}/cuti/${id}`);
+}
+
+/**
+ * Handle auth "Register" Karyawan data
+ * @param  {Object} data   Body Request
+ * @return {Object}        HTTP Response
+**/
+function authRegister(data) {
+  return axiosCustom("POST", `${API_URI}/auth/register`, data);
 }

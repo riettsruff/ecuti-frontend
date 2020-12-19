@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.metrodata.ecuti_frontend.entities.rest.Departemen;
+import com.metrodata.ecuti_frontend.entities.rest.AllDepartemen;
 import com.metrodata.ecuti_frontend.services.HeaderService;
 
 /**
@@ -31,12 +32,12 @@ public class DepartemenRestService {
   
   HeaderService headerService = new HeaderService();
   
-  public List<Departemen> getAllDepartemen() {
-    ResponseEntity<List<Departemen>> response = restTemplate.exchange(
+  public List<AllDepartemen> getAllDepartemen() {
+    ResponseEntity<List<AllDepartemen>> response = restTemplate.exchange(
       uri + "/departemen",
       HttpMethod.GET,
       headerService.getBearerTokenHeader(),
-      new ParameterizedTypeReference<List<Departemen>>() {}
+      new ParameterizedTypeReference<List<AllDepartemen>>() {}
     );
 
     return response.getBody();

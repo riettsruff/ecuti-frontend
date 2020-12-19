@@ -50,19 +50,19 @@
             <li sec:authorize="hasAuthority('MANAJER')" th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/karyawan/persetujuan-cuti' ? ' active' : ''}">
               <a href="/karyawan/persetujuan-cuti">
                 <span class="link-text">Persetujuan Cuti</span>
-                <span class="count-value">2</span>
+                <span class="count-value" th:text="${persetujuanCutiKaryawan.size()}"></span>
               </a>
             </li>
             <li th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/karyawan/riwayat-cuti' ? ' active' : ''}">
               <a href="/karyawan/riwayat-cuti">Riwayat Cuti</a>
             </li>
             <li sec:authorize="hasAuthority('SDM')" th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/karyawan/jenis-cuti' ? ' active' : ''}">
-              <a href="/karyawan/persetujuan-cuti">
+              <a href="/karyawan/jenis-cuti">
                 <span class="link-text">Jenis Cuti</span>
               </a>
             </li>
             <li sec:authorize="hasAuthority('SDM')" th:class="'single-sidebar-list' + ${#httpServletRequest.requestURI == '/karyawan/departemen' ? ' active' : ''}">
-              <a href="/karyawan/persetujuan-cuti">
+              <a href="/karyawan/departemen">
                 <span class="link-text">Departemen</span>
               </a>
             </li>
@@ -140,8 +140,7 @@
               <span class="box-info-icon color-2">
                 <i class="fas fa-history"></i>
               </span>
-              <span class="box-info-value" th:if="${currentKaryawan.cutiList == null}">0</span>
-              <span class="box-info-value" th:if="${currentKaryawan.cutiList != null}" th:text="${currentKaryawan.cutiList.size()}"></span>
+              <span class="box-info-value" th:text="${riwayatCutiPribadi.size()}"></span>
             </div>
           </a>
         </div>
@@ -151,18 +150,18 @@
           <span class="head-text">Status Cuti Saat Ini</span>
         </div>
         <div class="box-content-body">
-          <div class="box-cuti-row row">
-            <!-- <div class="box-cuti-col col-sm-6">
+          <div class="box-cuti-row row" th:if="${pengajuanCutiPribadi.size() > 0}">
+            <div class="box-cuti-col col-sm-6" th:each="_pengajuanCutiPribadi, iter : ${pengajuanCutiPribadi}">
               <div class="box-cuti">
-                <span class="cuti-text-box">CT-2020112008063021</span>
+                <span class="cuti-text-box" th:text="${_pengajuanCutiPribadi.id}"></span>
                 <div class="cuti-action">
-                  <span class="single-cuti-action eye-icon touch-icon">
+                  <span class="single-cuti-action eye-icon touch-icon detail-cuti-action-button" th:attr="data-id=${_pengajuanCutiPribadi.id}">
                     <i class="fas fa-eye"></i>
                   </span>
-                  <span class="single-cuti-action edit-icon touch-icon">
+                  <span class="single-cuti-action edit-icon touch-icon edit-cuti-action-button" th:attr="data-id=${_pengajuanCutiPribadi.id}">
                     <i class="fas fa-edit"></i>
                   </span>
-                  <span class="single-cuti-action trash-icon touch-icon">
+                  <span class="single-cuti-action trash-icon touch-icon delete-cuti-action-button" th:attr="data-id=${_pengajuanCutiPribadi.id}">
                     <i class="fas fa-trash"></i>
                   </span>
                 </div>
@@ -170,64 +169,26 @@
                   <tbody>
                     <tr>
                       <td class="cuti-text-field">Tanggal Mulai Cuti</td>
-                      <td class="cuti-text-value">18-09-2020</td>
+                      <td class="cuti-text-value" th:text="${_pengajuanCutiPribadi.tanggalMulai}"></td>
                     </tr>
                     <tr>
                       <td class="cuti-text-field">Tanggal Selesai Cuti</td>
-                      <td class="cuti-text-value">21-09-2020</td>
+                      <td class="cuti-text-value" th:text="${_pengajuanCutiPribadi.tanggalSelesai}"></td>
                     </tr>
                     <tr>
                       <td class="cuti-text-field">Jenis Cuti</td>
-                      <td class="cuti-text-value">Pernikahan</td>
-                    </tr>
-                    <tr>
-                      <td class="cuti-text-field">Durasi</td>
-                      <td class="cuti-text-value">3 Hari</td>
+                      <td class="cuti-text-value" th:if="${_pengajuanCutiPribadi.jenisCuti != null}" th:text="${_pengajuanCutiPribadi.jenisCuti.nama}"></td>
+                      <td class="cuti-text-value" th:if="${_pengajuanCutiPribadi.jenisCuti == null}" th:text="Lainnya"></td>
                     </tr>
                   </tbody>
                 </table>
-                <span class="cuti-status text-box alert-warning">Tertunda</span>
+                <span class="cuti-status text-box alert-warning" th:if="${_pengajuanCutiPribadi.status == 'tertunda'}" th:text="Tertunda"></span>
+                <span class="cuti-status text-box alert-danger" th:if="${_pengajuanCutiPribadi.status == 'ditolak'}" th:text="Ditolak"></span>
+                <span class="cuti-status text-box alert-success" th:text="Diterima"></span>
               </div>
             </div>
-            <div class="box-cuti-col col-sm-6">
-              <div class="box-cuti">
-                <span class="cuti-text-box">CT-2020112010173029</span>
-                <div class="cuti-action">
-                  <span class="single-cuti-action eye-icon touch-icon">
-                    <i class="fas fa-eye"></i>
-                  </span>
-                  <span class="single-cuti-action edit-icon touch-icon">
-                    <i class="fas fa-edit"></i>
-                  </span>
-                  <span class="single-cuti-action trash-icon touch-icon">
-                    <i class="fas fa-trash"></i>
-                  </span>
-                </div>
-                <table class="cuti-table">
-                  <tbody>
-                    <tr>
-                      <td class="cuti-text-field">Tanggal Mulai Cuti</td>
-                      <td class="cuti-text-value">05-10-2020</td>
-                    </tr>
-                    <tr>
-                      <td class="cuti-text-field">Tanggal Selesai Cuti</td>
-                      <td class="cuti-text-value">05-10-2020</td>
-                    </tr>
-                    <tr>
-                      <td class="cuti-text-field">Jenis Cuti</td>
-                      <td class="cuti-text-value">Pernikahan</td>
-                    </tr>
-                    <tr>
-                      <td class="cuti-text-field">Durasi</td>
-                      <td class="cuti-text-value">3 Hari</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <span class="cuti-status text-box alert-warning">Tertunda</span>
-              </div>
-            </div> -->
           </div>
-          <div class="box-cuti-col-info alert-info">
+          <div class="box-cuti-col-info alert-info" th:if="${pengajuanCutiPribadi.size() == 0}">
             <span class="box-cuti-col-info-text">Belum ada pengajuan</span>
           </div>
         </div>
@@ -256,8 +217,7 @@
                   <span class="box-info-icon color-2">
                     <i class="fas fa-history"></i>
                   </span>
-                  <span class="box-info-value" th:if="${currentKaryawan.cutiList == null}">0</span>
-                  <span class="box-info-value" th:if="${currentKaryawan.cutiList != null}" th:text="${currentKaryawan.cutiList.size()}"></span>
+                  <span class="box-info-value" th:text="${riwayatCutiPribadi.size()}"></span>
                 </div>
               </a>
             </div>
@@ -267,18 +227,18 @@
               <span class="head-text">Status Cuti Saat Ini</span>
             </div>
             <div class="box-content-body">
-              <div class="box-cuti-row row">
-                <!-- <div class="box-cuti-col col-sm-6">
+              <div class="box-cuti-row row" th:if="${pengajuanCutiPribadi.size() > 0}">
+                <div class="box-cuti-col col-sm-6" th:each="_pengajuanCutiPribadi, iter : ${pengajuanCutiPribadi}">
                   <div class="box-cuti">
-                    <span class="cuti-text-box">CT-2020112008063021</span>
+                    <span class="cuti-text-box" th:text="${_pengajuanCutiPribadi.id}"></span>
                     <div class="cuti-action">
-                      <span class="single-cuti-action eye-icon touch-icon" data-tooltip="Detail">
+                      <span class="single-cuti-action eye-icon touch-icon detail-cuti-action-button" th:attr="data-id=${_pengajuanCutiPribadi.id}">
                         <i class="fas fa-eye"></i>
                       </span>
-                      <span class="single-cuti-action edit-icon touch-icon" data-tooltip="Edit">
+                      <span class="single-cuti-action edit-icon touch-icon edit-cuti-action-button" th:attr="data-id=${_pengajuanCutiPribadi.id}">
                         <i class="fas fa-edit"></i>
                       </span>
-                      <span class="single-cuti-action trash-icon touch-icon"data-tooltip="Hapus">
+                      <span class="single-cuti-action trash-icon touch-icon delete-cuti-action-button" th:attr="data-id=${_pengajuanCutiPribadi.id}">
                         <i class="fas fa-trash"></i>
                       </span>
                     </div>
@@ -286,64 +246,26 @@
                       <tbody>
                         <tr>
                           <td class="cuti-text-field">Tanggal Mulai Cuti</td>
-                          <td class="cuti-text-value">18-09-2020</td>
+                          <td class="cuti-text-value" th:text="${_pengajuanCutiPribadi.tanggalMulai}"></td>
                         </tr>
                         <tr>
                           <td class="cuti-text-field">Tanggal Selesai Cuti</td>
-                          <td class="cuti-text-value">21-09-2020</td>
+                          <td class="cuti-text-value" th:text="${_pengajuanCutiPribadi.tanggalSelesai}"></td>
                         </tr>
                         <tr>
                           <td class="cuti-text-field">Jenis Cuti</td>
-                          <td class="cuti-text-value">Pernikahan</td>
-                        </tr>
-                        <tr>
-                          <td class="cuti-text-field">Durasi</td>
-                          <td class="cuti-text-value">3 Hari</td>
+                          <td class="cuti-text-value" th:if="${_pengajuanCutiPribadi.jenisCuti != null}" th:text="${_pengajuanCutiPribadi.jenisCuti.nama}"></td>
+                          <td class="cuti-text-value" th:if="${_pengajuanCutiPribadi.jenisCuti == null}" th:text="Lainnya"></td>
                         </tr>
                       </tbody>
                     </table>
-                    <span class="cuti-status text-box alert-warning">Tertunda</span>
+                    <span class="cuti-status text-box alert-warning" th:if="${_pengajuanCutiPribadi.status == 'tertunda'}" th:text="Tertunda"></span>
+                    <span class="cuti-status text-box alert-danger" th:if="${_pengajuanCutiPribadi.status == 'ditolak'}" th:text="Ditolak"></span>
+                    <span class="cuti-status text-box alert-success" th:text="Diterima"></span>
                   </div>
                 </div>
-                <div class="box-cuti-col col-sm-6">
-                  <div class="box-cuti">
-                    <span class="cuti-text-box">CT-2020112010173029</span>
-                    <div class="cuti-action">
-                      <span class="single-cuti-action eye-icon touch-icon">
-                        <i class="fas fa-eye"></i>
-                      </span>
-                      <span class="single-cuti-action edit-icon touch-icon">
-                        <i class="fas fa-edit"></i>
-                      </span>
-                      <span class="single-cuti-action trash-icon touch-icon">
-                        <i class="fas fa-trash"></i>
-                      </span>
-                    </div>
-                    <table class="cuti-table">
-                      <tbody>
-                        <tr>
-                          <td class="cuti-text-field">Tanggal Mulai Cuti</td>
-                          <td class="cuti-text-value">05-10-2020</td>
-                        </tr>
-                        <tr>
-                          <td class="cuti-text-field">Tanggal Selesai Cuti</td>
-                          <td class="cuti-text-value">08-10-2020</td>
-                        </tr>
-                        <tr>
-                          <td class="cuti-text-field">Jenis Cuti</td>
-                          <td class="cuti-text-value">Pernikahan</td>
-                        </tr>
-                        <tr>
-                          <td class="cuti-text-field">Durasi</td>
-                          <td class="cuti-text-value">3 Hari</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <span class="cuti-status text-box alert-warning">Tertunda</span>
-                  </div>
-                </div> -->
               </div>
-              <div class="box-cuti-col-info alert-info">
+              <div class="box-cuti-col-info alert-info" th:if="${pengajuanCutiPribadi.size() == 0}">
                 <span class="box-cuti-col-info-text">Belum ada pengajuan</span>
               </div>
             </div>
@@ -362,7 +284,7 @@
                 <span class="box-info-icon color-3">
                   <i class="fas fa-briefcase"></i>
                 </span>
-                <span class="box-info-value">34</span>
+                <span class="box-info-value" th:text="${totalKaryawanAktif}"></span>
               </div>
             </div>
             <div class="box-info-col">
@@ -371,7 +293,7 @@
                 <span class="box-info-icon color-4">
                   <i class="fas fa-business-time"></i>
                 </span>
-                <span class="box-info-value">4</span>
+                <span class="box-info-value" th:text="${totalKaryawanCuti}"></span>
               </div>
             </div>
             <div sec:authorize="hasAuthority('MANAJER')" class="box-info-col">
@@ -381,7 +303,7 @@
                 <span class="box-info-icon color-5">
                   <i class="fas fa-handshake"></i>
                 </span>
-                <span class="box-info-value">2</span>
+                <span class="box-info-value" th:text="${persetujuanCutiKaryawan.size()}"></span>
               </div>
             </div>
             <div class="box-info-col">
@@ -390,7 +312,7 @@
                 <span class="box-info-icon color-2">
                   <i class="fas fa-history"></i>
                 </span>
-                <span class="box-info-value">9</span>
+                <span class="box-info-value" th:text="${riwayatCutiKaryawan.size()}"></span>
               </div>
             </div> 
           </div>
@@ -458,11 +380,11 @@
           <div class="form-group row">
             <div class="col-md-6">
               <label for="infocuti__jumlahcutidiambil" class="required">Jumlah Cuti Diambil</label>
-              <input type="text" class="form-control" id="infocuti__jumlahcutidiambil" disabled th:value="0" data-required="required" data-label="Jumlah Cuti Diambil">
+              <input type="text" class="form-control" id="infocuti__jumlahcutidiambil" disabled th:value="0" data-label="Jumlah Cuti Diambil">
             </div>
             <div class="col-md-6">
               <label for="infocuti__sisacuti" class="required">Sisa Cuti</label>
-              <input type="text" class="form-control" id="infocuti__sisacuti" th:value="${currentKaryawan.sisaCuti}" disabled data-required="required" data-label="Sisa Cuti">
+              <input type="text" class="form-control" id="infocuti__sisacuti" th:value="${currentKaryawan.sisaCuti}" disabled data-label="Sisa Cuti">
             </div>
           </div>
           <div class="form-group">
@@ -500,14 +422,26 @@
           </tr>
         </thead>
         <tbody>
-          <tr th:each="riwayatCuti, iter : ${currentKaryawan.cutiList}">
-            <td th:text="${iter.index+1}"></td>
+          <tr th:each="riwayatCuti, iter : ${riwayatCutiPribadi}" th:if="${#httpServletRequest.requestURI == '/pribadi/riwayat-cuti'}">
+            <td th:text="${iter.index + 1}"></td>
             <td th:text="${riwayatCuti.tanggalMulai}"></td>
-            <td th:text="${riwayatCuti.keterangan}"></td>
+            <td th:text="${riwayatCuti.jenisCuti.nama}"></td>
             <td th:text="${riwayatCuti.jenisCuti.jumlahJatahCuti}"></td>
             <td th:text="${riwayatCuti.catatan}"></td>
             <td>
-              <span class="eye-icon action-icon touch-icon">
+              <span class="eye-icon action-icon touch-icon detail-cuti-action-button" th:attr="data-id=${riwayatCuti.id}">
+                <i class="fas fa-eye"></i>
+              </span>
+            </td>
+          </tr>
+          <tr th:each="riwayatCuti, iter : ${riwayatCutiKaryawan}" th:if="${#httpServletRequest.requestURI == '/karyawan/riwayat-cuti'}">
+            <td th:text="${iter.index + 1}"></td>
+            <td th:text="${riwayatCuti.tanggalMulai}"></td>
+            <td th:text="${riwayatCuti.jenisCuti.nama}"></td>
+            <td th:text="${riwayatCuti.jenisCuti.jumlahJatahCuti}"></td>
+            <td th:text="${riwayatCuti.catatan}"></td>
+            <td>
+              <span class="eye-icon action-icon touch-icon detail-cuti-action-button" th:attr="data-id=${riwayatCuti.id}">
                 <i class="fas fa-eye"></i>
               </span>
             </td>
@@ -536,38 +470,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Ardi Budianto</td>
-            <td>09-12-2019</td>
-            <td>Sakit</td>
-            <td>3</td>
+          <tr th:each="persetujuanCuti, iter : ${persetujuanCutiKaryawan}">
+            <td th:text="${iter.index + 1}"></td>
+            <td th:text="${persetujuanCuti.karyawan.nama}"></td>
+            <td th:text="${persetujuanCuti.tanggalMulai}"></td>
+            <td th:text="${persetujuanCuti.jenisCuti.nama}"></td>
+            <td th:text="${persetujuanCuti.jenisCuti.jumlahJatahCuti}"></td>
             <td>
-              <span class="eye-icon action-icon touch-icon">
+              <span class="eye-icon action-icon touch-icon detail-cuti-action-button" th:attr="data-id=${persetujuanCuti.id}">
                 <i class="fas fa-eye"></i>
               </span>
-              <span class="check-icon action-icon touch-icon">
+              <span class="check-icon action-icon touch-icon accept-cuti-action-button" th:attr="data-id=${persetujuanCuti.id}">
                 <i class="fas fa-check"></i>
               </span>
-              <span class="times-icon action-icon touch-icon">
-                <i class="fas fa-times"></i>
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Alex Budiman</td>
-            <td>08-11-2019</td>
-            <td>Pernikahan</td>
-            <td>2</td>
-            <td>
-              <span class="eye-icon action-icon touch-icon">
-                <i class="fas fa-eye"></i>
-              </span>
-              <span class="check-icon action-icon touch-icon">
-                <i class="fas fa-check"></i>
-              </span>
-              <span class="times-icon action-icon touch-icon">
+              <span class="times-icon action-icon touch-icon reject-cuti-action-button" th:attr="data-id=${persetujuanCuti.id}">
                 <i class="fas fa-times"></i>
               </span>
             </td>
@@ -579,6 +495,9 @@
 
     <!-- JENIS CUTI START -->
     <div sec:authorize="hasAuthority('SDM')" th:if="${#httpServletRequest.requestURI == '/karyawan/jenis-cuti'}" class="content-area">
+      <div class="add-circle-button add-jenis-cuti-button d-flex justify-content-center align-items-center touch-icon">
+        <i class="fas fa-plus"></i>
+      </div>
       <table id="jenis-cuti-table" class="table hover">
         <thead>
           <tr>
@@ -589,17 +508,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Pernikahan</td>
-            <td>3</td>
+          <tr th:each="_jenisCuti, iter : ${jenisCuti}">
+            <td th:text="${iter.index + 1}"></td>
+            <td th:text="${_jenisCuti.nama}"></td>
+            <td th:text="${_jenisCuti.jumlahJatahCuti}"></td>
             <td>
-              <span class="edit-icon action-icon touch-icon">
+              <span class="edit-icon action-icon touch-icon edit-action-button" th:attr="data-id=${_jenisCuti.id}">
                 <i class="fas fa-edit"></i>
               </span>
-              <span class="times-icon action-icon touch-icon">
+              <!-- <span class="times-icon action-icon touch-icon delete-action-button" th:attr="data-id=${_jenisCuti.id}">
                 <i class="fas fa-times"></i>
-              </span>
+              </span> -->
             </td>
           </tr>
         </tbody>
@@ -609,7 +528,10 @@
 
     <!-- DEPARTEMEN START -->
     <div sec:authorize="hasAuthority('SDM')" th:if="${#httpServletRequest.requestURI == '/karyawan/departemen'}" class="content-area">
-      <table id="jenis-cuti-table" class="table hover">
+      <div class="add-circle-button d-flex justify-content-center align-items-center touch-icon add-departemen-button">
+        <i class="fas fa-plus"></i>
+      </div>
+      <table id="departemen-table" class="table hover">
         <thead>
           <tr>
             <th>No</th>
@@ -619,16 +541,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>SDX 1</td>
-            <td>Budi Brilian</td>
+          <tr th:each="_departemen, iter : ${departemen}">
+            <td th:text="${iter.index + 1}"></td>
+            <td th:text="${_departemen.nama}"></td>
+            <td th:text="${_departemen.manager}"></td>
             <td>
-              <span class="edit-icon action-icon touch-icon">
+              <span class="edit-icon action-icon touch-icon edit-action-button" th:attr="data-id=${_departemen.id}">
                 <i class="fas fa-edit"></i>
-              </span>
-              <span class="times-icon action-icon touch-icon">
-                <i class="fas fa-times"></i>
               </span>
             </td>
           </tr>
@@ -639,7 +558,7 @@
 
     <!-- KARYAWAN START -->
     <div sec:authorize="hasAnyAuthority('MANAJER', 'SDM')" th:if="${#httpServletRequest.requestURI == '/karyawan'}" class="content-area">
-      <div sec:authorize="hasAuthority('SDM')" class="add-circle-button d-flex justify-content-center align-items-center touch-icon">
+      <div sec:authorize="hasAuthority('SDM')" class="add-circle-button d-flex justify-content-center align-items-center touch-icon add-karyawan-button">
         <i class="fas fa-plus"></i>
       </div>
       <div class="export-wrapper">
@@ -651,7 +570,6 @@
         <thead>
           <tr>
             <th>No</th>
-            <th>NIK</th>
             <th>Nama</th>
             <th>Jabatan</th>
             <th>Bagian</th>
@@ -660,44 +578,28 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>PEG-2019-0001</td>
-            <td>Ardi Budianto</td>
-            <td>Manajer</td>
-            <td>Keuangan</td>
-            <td>
-              <span class="red-text-box">Cuti</span>
-            </td>
-            <td>
-              <span class="eye-icon action-icon touch-icon">
-                <i class="fas fa-eye"></i>
-              </span>
-              <span sec:authorize="hasAuthority('SDM')" class="edit-icon action-icon touch-icon">
-                <i class="fas fa-edit"></i>
-              </span>
-              <span sec:authorize="hasAuthority('SDM')" class="trash-icon action-icon touch-icon">
-                <i class="fas fa-trash"></i>
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>PEG-2019-0002</td>
-            <td>Alex Budiman</td>
-            <td>Staf</td>
-            <td>ERD</td>
-            <td>
+          <tr th:each="_karyawan, iter : ${karyawan}">
+            <td th:text="${iter.index + 1}"></td>
+            <td th:text="${_karyawan.nama}"></td>
+            <td th:text="${_karyawan.jabatan}"></td>
+            <td th:text="${_karyawan.departemen.nama}"></td>
+            <td th:if="${_karyawan.status == 'aktif'}">
               <span class="green-text-box">Aktif</span>
             </td>
+            <td th:if="${_karyawan.status == 'cuti'}">
+              <span class="red-text-box">Cuti</span>
+            </td>
+            <td th:if="${_karyawan.status == 'nonaktif'}">
+              <span class="red-text-box">Non Aktif</span>
+            </td>
             <td>
-              <span class="eye-icon action-icon touch-icon">
+              <span class="eye-icon action-icon touch-icon detail-action-button" th:attr="data-id=${_karyawan.id}">
                 <i class="fas fa-eye"></i>
               </span>
-              <span sec:authorize="hasAuthority('SDM')" class="edit-icon action-icon touch-icon">
+              <span sec:authorize="hasAuthority('SDM')" class="edit-icon action-icon touch-icon edit-action-button" th:attr="data-id=${_karyawan.id}">
                 <i class="fas fa-edit"></i>
               </span>
-              <span sec:authorize="hasAuthority('SDM')" class="trash-icon action-icon touch-icon">
+              <span sec:authorize="hasAuthority('SDM')" class="trash-icon action-icon touch-icon delete-action-button" th:attr="data-id=${_karyawan.id}">
                 <i class="fas fa-trash"></i>
               </span>
             </td>
@@ -814,56 +716,88 @@
 
 <!-- MODAL CUTI START -->
 <div class="modal fade" id="modal-cuti" tabindex="-1" aria-hidden="true" th:fragment="modal-cuti">
-  
-</div>
-<!-- MODAL CUTI END -->
-
-<!-- MODAL EMPLOYEE START -->
-<div class="modal fade" id="modal-employee" tabindex="-1" aria-hidden="true" th:fragment="modal-employee">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form method="POST" id="form-employee">
+      <form method="POST" id="form-cuti">
         <div class="modal-header">
-          <h5 class="modal-title">Form Karyawan</h5>
+          <h5 class="modal-title">Form Cuti</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <div class="form-group">
-            <label for="karyawawan__nama">Nama</label>
-            <input type="text" id="karyawawan__nama" data-required="required" data-label="Nama" class="form-control" />
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="karyawan__jabatan">Jabatan</label>
-              <select id="karyawan__jabatan" class="form-control" data-label="Jabatan" data-required="required">
-                <option value="KARYAWAN">Karyawan (Staf)</option>
-                <option value="MANAJER">Manajer</option>
-                <option value="SDM">SDM</option>
-              </select>
+          <div class="box-content">
+            <div class="box-content-head">
+              <span class="head-text">Informasi Pribadi</span>
             </div>
-            <div class="form-group col-md-6">
-              <label for="karyawan__departemen">Departemen</label>
-              <select id="karyawan__departemen" data-label="Departemen" data-required="required">
-                <option value="Opsi 1">Opsi 1</option>
-                <option value="Opsi 2">Opsi 2</option>
-                <option value="Opsi 3">Opsi 3</option>
-              </select>
+            <div class="box-content-body">
+              <div class="form-group row">
+                <label for="infopribadi__id" class="col-md-3 col-form-label required">ID Karyawan</label>
+                <div class="col-md-9">
+                  <input th:value="${currentKaryawan.id}" type="text" class="form-control" id="infopribadi__id" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="infopribadi__namalengkap" class="col-md-3 col-form-label required">Nama Lengkap</label>
+                <div class="col-md-9">
+                  <input th:value="${currentKaryawan.nama}" type="text" class="form-control" id="infopribadi__namalengkap" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="infopribadi__jabatan" class="col-md-3 col-form-label required">Jabatan</label>
+                <div class="col-md-9">
+                  <input th:value="${currentKaryawan.jabatan}" type="text" class="form-control" id="infopribadi__jabatan" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="infopribadi__bagian" class="col-md-3 col-form-label required">Bagian</label>
+                <div class="col-md-9">
+                  <input th:value="${currentKaryawan.departemen.nama}" type="text" class="form-control" id="infopribadi__bagian" disabled>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="form-group">
-            <label for="karyawawan__email">Email</label>
-            <input type="text" id="karyawawan__email" data-required="required" data-label="Email" data-format="EMAIL" class="form-control" />
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="karyawawan__username">Username</label>
-              <input type="text" id="karyawawan__username" data-required="required" data-label="Username" class="form-control" />
+          <div class="box-content">
+            <div class="box-content-head">
+              <span class="head-text">Informasi Cuti</span>
             </div>
-            <div class="form-group col-md-6">
-              <label for="karyawan__password">Password</label>
-              <input type="text" id="karyawan__password" data-label="Password" class="form-control" disabled  />
+            <div class="box-content-body">
+              <div class="form-group">
+                <label for="infocuti__jeniscuti" class="required">Jenis Cuti</label>
+                <select class="form-control" id="infocuti__jeniscuti">
+                  <option disabled selected th:attr="data-jatah=0">- Pilih -</option>
+                  <option th:each="jenisCutiTersedia : ${jenisCutiTersedia}" th:value="${jenisCutiTersedia.id}" th:text="${jenisCutiTersedia.nama}" th:attr="data-jatah=${jenisCutiTersedia.jumlahJatahCuti}"></option>
+                  <option value="0" th:attr="data-jatah=0">Lainnya</option>
+                </select>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="infocuti__tanggalmulaicuti" class="required">Tanggal Mulai Cuti</label>
+                  <input type="text" class="form-control" id="infocuti__tanggalmulaicuti" data-toggle="datepicker" data-required="required" data-label="Tanggal Mulai Cuti">
+                </div>
+                <div class="col-md-6">
+                  <label for="infocuti__tanggalselesaicuti" class="required">Tanggal Selesai Cuti</label>
+                  <input type="text" class="form-control" id="infocuti__tanggalselesaicuti" data-toggle="datepicker" data-required="required" data-label="Tanggal Selesai Cuti">
+                </div>
+              </div>
+              <div class="form-group row form-group-jatah-cuti">
+                <div class="col-md-6">
+                  <label for="infocuti__jumlahcutidiambil" class="required">Jumlah Cuti Diambil</label>
+                  <input type="text" class="form-control" id="infocuti__jumlahcutidiambil" disabled th:value="0" data-label="Jumlah Cuti Diambil">
+                </div>
+                <div class="col-md-6">
+                  <label for="infocuti__sisacuti" class="required">Sisa Cuti</label>
+                  <input type="text" class="form-control" id="infocuti__sisacuti" th:value="${currentKaryawan.sisaCuti}" disabled data-label="Sisa Cuti">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="infocuti__keterangan">Keterangan</label>
+                <textarea class="form-control" id="infocuti__keterangan" rows="3"></textarea>
+              </div>
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="infocuti__perlupengganti">
+                <label class="form-check-label" for="infocuti__perlupengganti">Perlu Pengganti</label>
+              </div>
             </div>
           </div>
         </div>
@@ -874,13 +808,65 @@
     </div>
   </div>
 </div>
-<!-- MODAL EMPLOYEE END -->
+<!-- MODAL CUTI END -->
+
+<!-- MODAL KARYAWAN START -->
+<div class="modal fade" id="modal-karyawan" tabindex="-1" aria-hidden="true" th:fragment="modal-karyawan">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" id="form-karyawan">
+        <div class="modal-header">
+          <h5 class="modal-title">Form Karyawan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="karyawan__id" />
+          <div class="form-group">
+            <label for="karyawan__nama">Nama</label>
+            <input type="text" id="karyawan__nama" data-required="required" data-label="Nama" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="karyawan__jabatan">Jabatan</label>
+            <select id="karyawan__jabatan" class="form-control" data-label="Jabatan" data-required="required">
+              <option value="" disabled selected>- Pilih -</option>
+              <option value="KARYAWAN">Karyawan (Staf)</option>
+              <option value="MANAJER">Manajer</option>
+              <option value="SDM">SDM</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="karyawan__departemen">Departemen</label>
+            <select class="form-control" id="karyawan__departemen" data-required="required">
+              <option th:value="0" disabled selected>- Pilih -</option>
+              <option th:each="_departemen : ${departemen}" th:value="${_departemen.id}" th:text="${_departemen.nama}"></option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="karyawan__email">Email</label>
+            <input type="text" id="karyawan__email" data-required="required" data-label="Email" data-format="EMAIL" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="karyawan__username">Username</label>
+            <input type="text" id="karyawan__username" data-required="required" data-label="Username" class="form-control" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="submit-button btn-primary-custom">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- MODAL KARYAWAN END -->
 
 <!-- MODAL KIND OF LEAVE START -->
 <div class="modal fade" id="modal-kind-of-leave" tabindex="-1" aria-hidden="true" th:fragment="modal-kind-of-leave">
   <div class="modal-dialog">
     <div class="modal-content">
       <form method="POST" id="form-kind-of-leave">
+        <input type="hidden" id="kindofleave__id" />
         <div class="modal-header">
           <h5 class="modal-title">Form Jenis Cuti</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
@@ -894,7 +880,7 @@
           </div>
           <div class="form-group">
             <label for="kindofleave__jumlahjatahcuti">Jumlah Jatah Cuti</label>
-            <input type="text" id="kindofleave__jumlahjatahcuti" data-required="required" data-label="Jumlah Jatah Cuti" class="form-control" />
+            <input type="text" id="kindofleave__jumlahjatahcuti" data-required="required" data-format="NUMERIC" data-label="Jumlah Jatah Cuti" class="form-control" />
           </div>
         </div>
         <div class="modal-footer">
@@ -905,3 +891,37 @@
   </div>
 </div>
 <!-- MODAL KIND OF LEAVE END -->
+
+<!-- MODAL DEPARTEMEN START -->
+<div class="modal fade" id="modal-departemen" tabindex="-1" aria-hidden="true" th:fragment="modal-departemen">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" id="form-departemen">
+        <input type="hidden" id="departemen__id" />
+        <div class="modal-header">
+          <h5 class="modal-title">Form Departemen</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="departemen__nama">Nama Departemen</label>
+            <input type="text" id="departemen__nama" data-required="required" data-label="Nama Departemen" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="departemen__manager">Manajer</label>
+            <select class="form-control" id="departemen__manager" data-required="required">
+              <option th:value="0" disabled selected>- Pilih -</option>
+              <option th:each="_karyawan : ${karyawan}" th:value="${_karyawan.id}" th:text="${_karyawan.nama}"></option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="submit-button btn-primary-custom">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- MODAL DEPARTEMEN END -->

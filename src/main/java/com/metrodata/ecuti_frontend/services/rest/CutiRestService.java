@@ -53,4 +53,26 @@ public class CutiRestService {
     return response.getBody();
   }
   
+  public List<Cuti> getCutiByDepartemenId(int id) {
+    ResponseEntity<List<Cuti>> response = restTemplate.exchange(
+      uri + "/cuti/" + id + "/departemen",
+      HttpMethod.GET,
+      headerService.getBearerTokenHeader(),
+      new ParameterizedTypeReference<List<Cuti>>() {}
+    );
+
+    return response.getBody();
+  }
+  
+  public List<Cuti> getCutiByKaryawanId(int id) {
+    ResponseEntity<List<Cuti>> response = restTemplate.exchange(
+      uri + "/cuti/" + id + "/karyawan",
+      HttpMethod.GET,
+      headerService.getBearerTokenHeader(),
+      new ParameterizedTypeReference<List<Cuti>>() {}
+    );
+
+    return response.getBody();
+  }
+  
 }

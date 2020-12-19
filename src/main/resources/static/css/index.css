@@ -332,35 +332,6 @@
   font-weight: 500;
 }
 
-#main-content-wrapper .body-main-content .box-content {
-  border-radius: 5px;
-  margin-bottom: 15px;
-}
-
-#main-content-wrapper .body-main-content .box-content:not(.action-area) {
-  background-color: #fff;
-}
-
-#main-content-wrapper .body-main-content .box-content .box-content-head {
-  padding: 7px 15px 9px;
-  background-color: #f6f6f6;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border: 1px solid #eee;
-  font-weight: 500;
-  color: #777;
-  text-transform: uppercase;
-}
-
-#main-content-wrapper .body-main-content .box-content .box-content-body {
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-left: 1px solid #eee;
-  border-right: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-  padding: 15px 15px 0;
-}
-
 #main-content-wrapper .body-main-content .box-cuti-row {
   margin-left: -7.5px !important;
   margin-right: -7.5px !important;
@@ -435,14 +406,8 @@
   border-bottom: none;
 }
 
-#main-content-wrapper .body-main-content .box-content .form-check .form-check-label {
-  position: relative;
-  left: 6px;
-  top: 2px;
-}
-
 #main-content-wrapper .body-main-content .add-circle-button {
-  position: absolute;
+  position: fixed;
   z-index: 100;
   right: 15px;
   bottom: 15px;
@@ -492,8 +457,54 @@
   margin-right: 4px;
 }
 
+/* BOX CONTENT */
+
+.box-content {
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.box-content:not(.action-area) {
+  background-color: #fff;
+}
+
+.box-content .box-content-head {
+  padding: 7px 15px 9px;
+  background-color: #f6f6f6;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border: 1px solid #eee;
+  font-weight: 500;
+  color: #777;
+  text-transform: uppercase;
+}
+
+.box-content .box-content-body {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding: 15px 15px 0;
+}
+
+.box-content .form-check .form-check-label {
+  position: relative;
+  left: 6px;
+  top: 2px;
+}
+
 /* MODAL */
 
+#modal-cuti > .modal-dialog {
+  max-width: 60% !important;
+}
+
+#modal-cuti .box-content .form-check {
+  left: 20px;
+}
+
+.modal .modal-body .form-row,
 .modal .modal-body .form-group {
   padding: 0 !important;
 }
