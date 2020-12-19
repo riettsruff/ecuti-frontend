@@ -170,7 +170,7 @@ function updateCuti(data, id) {
  * @return {Object}       HTTP Response
 **/
 function deleteCuti(id) {
-  return axiosCustom("DELETE", `${API_URI}/cuti/${id}`, data);
+  return axiosCustom("DELETE", `${API_URI}/cuti/${id}`);
 }
 
 /**

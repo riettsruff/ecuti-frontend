@@ -329,7 +329,7 @@
         </div>
         <div class="box-content-body">
           <div class="form-group row">
-            <label for="infopribadi__nik" class="col-md-3 col-form-label required">No. Induk Karyawan</label>
+            <label for="infopribadi__nik" class="col-md-3 col-form-label required">ID Karyawan</label>
             <div class="col-md-9">
               <input th:value="${currentKaryawan.id}" type="text" class="form-control" id="infopribadi__nik" disabled>
             </div>
@@ -362,19 +362,19 @@
           <div class="form-group">
             <label for="infocuti__jeniscuti" class="required">Jenis Cuti</label>
             <select class="form-control" id="infocuti__jeniscuti">
-              <option value="0" disabled selected th:attr="data-jatah=0">- Pilih -</option>
-              <option th:each="jenisCutiTersedia : ${jenisCutiTersedia}" th:value="${jenisCutiTersedia.id}" th:text="${jenisCutiTersedia.nama}" th:attr="data-jatah=${jenisCutiTersedia.jumlahJatahCuti}"></option>
-              <option value="0" th:attr="data-jatah=0">Lainnya</option>
+              <option disabled selected th:attr="data-jatah=0">- Pilih -</option>
+              <option th:each="_jenisCutiTersedia : ${jenisCutiTersedia}" th:value="${_jenisCutiTersedia.id}" th:text="${_jenisCutiTersedia.nama}" th:attr="data-jatah=${_jenisCutiTersedia.jumlahJatahCuti}"></option>
+              <option th:value="${null}" th:attr="data-jatah=0">Lainnya</option>
             </select>
           </div>
           <div class="form-group row">
             <div class="col-md-6">
               <label for="infocuti__tanggalmulaicuti" class="required">Tanggal Mulai Cuti</label>
-              <input type="text" class="form-control" id="infocuti__tanggalmulaicuti" data-toggle="datepicker" data-required="required" data-label="Tanggal Mulai Cuti">
+              <input type="text" class="form-control" id="infocuti__tanggalmulaicuti" data-toggle="datepicker" data-required="required" data-label="Tanggal Mulai Cuti" autocomplete="off">
             </div>
             <div class="col-md-6">
               <label for="infocuti__tanggalselesaicuti" class="required">Tanggal Selesai Cuti</label>
-              <input type="text" class="form-control" id="infocuti__tanggalselesaicuti" data-toggle="datepicker" data-required="required" data-label="Tanggal Selesai Cuti">
+              <input type="text" class="form-control" id="infocuti__tanggalselesaicuti" data-toggle="datepicker" data-required="required" data-label="Tanggal Selesai Cuti" autocomplete="off">
             </div>
           </div>
           <div class="form-group row">

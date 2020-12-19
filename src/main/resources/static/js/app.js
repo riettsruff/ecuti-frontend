@@ -588,7 +588,7 @@ $(document).ready(function() {
       });
 
       if(_saveCuti.status === 200) {
-        swal("Sukses!", "Pengajuan cuti berhasil", "success").then(() => location.reload);
+        swal("Sukses!", "Pengajuan cuti berhasil", "success").then(() => location.reload());
       } else {
         swal("Oops!", "Pengajuan cuti gagal", "warning");
       }
@@ -606,7 +606,9 @@ $(document).ready(function() {
     if(sisaCuti - jmlJatahCuti < 0) {
       swal("Oops!", "Maaf, Sisa jatah cuti anda tidak cukup", "warning");
     } else {
-      $("#form-pengajuan-cuti #infocuti__tanggalselesaicuti").attr("disabled", "disabled");
+      if(jmlJatahCuti !== 0) {
+        $("#form-pengajuan-cuti #infocuti__tanggalselesaicuti").attr("disabled", "disabled");
+      }
 
       $("#form-pengajuan-cuti #infocuti__jumlahcutidiambil").val(jmlJatahCuti);
       $("#form-pengajuan-cuti #infocuti__sisacuti").val(sisaCuti - jmlJatahCuti);

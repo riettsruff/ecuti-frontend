@@ -43,6 +43,7 @@ public class MainController {
     public String index(Authentication authentication, Model model) throws ParseException {
       User principal = (User) authentication.getPrincipal();
       Karyawan currentKaryawan = karyawanRestService.getKaryawanById(principal.getId());
+      List<Cuti> currentCuti = cutiRestService.getCutiByKaryawanId(principal.getId());
       
       model.addAttribute("jenisCutiTersedia", jenisCutiRestService.getAllJenisCuti());
       model.addAttribute("currentKaryawan", currentKaryawan);
@@ -52,11 +53,14 @@ public class MainController {
       List<Cuti> riwayatCutiPribadi = new ArrayList<Cuti>();
       List<Cuti> persetujuanCutiKaryawan = new ArrayList<Cuti>();
       List<Cuti> pengajuanCutiPribadi = new ArrayList<Cuti>();
-      List<Cuti> listCutiPribadi = currentKaryawan.getCutiList();
+      List<Cuti> listCutiPribadi = currentCuti;
       List<Cuti> listCutiKaryawan = cutiRestService.getCutiByDepartemenId(currentKaryawan.getDepartemen().getId());
       
+      System.out.println(principal.getId());
+      System.out.println(listCutiPribadi);  
+      
       if(listCutiPribadi != null) {
-        for(Cuti cuti : currentKaryawan.getCutiList()) {
+        for(Cuti cuti : listCutiPribadi) {
           SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
           String tanggalSelesai = cuti.getTanggalSelesai();
           String tanggalHariIni = dateFormat.format(new Date());
@@ -114,6 +118,8 @@ public class MainController {
       model.addAttribute("riwayatCutiPribadi", riwayatCutiPribadi);
       model.addAttribute("riwayatCutiKaryawan", riwayatCutiKaryawan);
       model.addAttribute("pengajuanCutiPribadi", pengajuanCutiPribadi);
+      
+      System.out.println(pengajuanCutiPribadi);
       
       return "index";
     }
