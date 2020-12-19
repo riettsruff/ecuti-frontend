@@ -149,16 +149,19 @@ $(document).ready(function() {
         },
       },
     }).then(async (val) => {
+      const _saveCutiApproval = await saveCutiApproval({
+        catatan: val,
+        cutiId: $(this).data("id"),
+        terima: true
+      });
 
-      // const _saveCutiApproval = await saveCutiApproval();
-
-      // if(_saveCutiApproval.status === 200) {
-      //   swal("Sukses!", "Pengajuan Cuti berhasil diterima", "success").then(() => {
-      //     location.reload();
-      //   });
-      // } else {
-      //   swal("Oops!", "Internal Server Error", "warning");
-      // }
+      if(_saveCutiApproval.status === 200) {
+        swal("Sukses!", "Pengajuan Cuti berhasil diterima", "success").then(() => {
+          location.reload();
+        });
+      } else {
+        swal("Oops!", "Internal Server Error", "warning");
+      }
     });
   });
 
@@ -175,16 +178,19 @@ $(document).ready(function() {
         },
       },
     }).then(async (val) => {
-      console.log(val);
-      // const _saveCutiApproval = await saveCutiApproval();
+      const _saveCutiApproval = await saveCutiApproval({
+        catatan: val,
+        cutiId: $(this).data("id"),
+        terima: false
+      });
 
-      // if(_saveCutiApproval.status === 200) {
-      //   swal("Sukses!", "Pengajuan Cuti berhasil ditolak", "success").then(() => {
-      //     location.reload();
-      //   });
-      // } else {
-      //   swal("Oops!", "Internal Server Error", "warning");
-      // }
+      if(_saveCutiApproval.status === 200) {
+        swal("Sukses!", "Pengajuan Cuti berhasil ditolak", "success").then(() => {
+          location.reload();
+        });
+      } else {
+        swal("Oops!", "Internal Server Error", "warning");
+      }
     });
   });
 
@@ -600,6 +606,8 @@ $(document).ready(function() {
     if(sisaCuti - jmlJatahCuti < 0) {
       swal("Oops!", "Maaf, Sisa jatah cuti anda tidak cukup", "warning");
     } else {
+      $("#form-pengajuan-cuti #infocuti__tanggalselesaicuti").attr("disabled", "disabled");
+
       $("#form-pengajuan-cuti #infocuti__jumlahcutidiambil").val(jmlJatahCuti);
       $("#form-pengajuan-cuti #infocuti__sisacuti").val(sisaCuti - jmlJatahCuti);
 
